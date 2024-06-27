@@ -12,7 +12,9 @@
     "seed": "knex seed:run --knexfile './src/lib/db.js'"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.34",
     "@nextui-org/react": "^2.4.2",
+    "ai": "^3.2.14",
     "framer-motion": "^11.2.12",
     "knex": "^3.1.0",
     "mysql": "^2.18.1",
