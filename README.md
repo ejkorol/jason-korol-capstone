@@ -80,31 +80,31 @@ Lucid automatically takes the most recurring symbols in your dream, and creates 
 
 #### Landing Page
 
-![landing](./landing.png "Landing Page")
+![landing](./public/landing.png "Landing Page")
 
 #### Onboarding
 
-![onboarding-1](./onboarding-1.png "Onboarding Page 1")
+![onboarding-1](./public/onboarding-1.png "Onboarding Page 1")
 
-![onboarding-2](./onboarding-2.png "Onboarding Page 2")
+![onboarding-2](./public/onboarding-2.png "Onboarding Page 2")
 
-![onboarding-3](./onboarding-3.png "Onboarding Page 3")
+![onboarding-3](./public/onboarding-3.png "Onboarding Page 3")
 
 #### Login
 
-![login](./login.png "Login Page")
+![login](./public/login.png "Login Page")
 
 #### Dashboard
 
-![dashboard-full](./dashboard-full.png "Dashboard full")
+![dashboard-full](./public/dashboard-full.png "Dashboard full")
 
-![dashboard-empty](./dashboard-empty.png "Dashboard empty")
+![dashboard-empty](./public/dashboard-empty.png "Dashboard empty")
 
-![dashboard-create-modal](./dashboard-create-modal.png "Dashboard create modal")
+![dashboard-create-modal](./public/dashboard-create-modal.png "Dashboard create modal")
 
-![dashboard-loading-modal](./dashboard-loading-modal.png "Dashboard loading modal")
+![dashboard-loading-modal](./public/dashboard-loading-modal.png "Dashboard loading modal")
 
-![dashboard-analysis-modal](./dashboard-analysis-modal.png "Dashboard analysis modal")
+![dashboard-analysis-modal](./public/dashboard-analysis-modal.png "Dashboard analysis modal")
 
 ### Endpoints
 
