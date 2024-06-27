@@ -7,11 +7,16 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate": "knex migrate:latest --knexfile './src/lib/db.js'",
+    "seed": "knex seed:run --knexfile './src/lib/db.js'"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.2",
     "framer-motion": "^11.2.12",
+    "knex": "^3.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.10.1",
     "next": "14.2.4",
     "react": "^18",
     "react-dom": "^18"
