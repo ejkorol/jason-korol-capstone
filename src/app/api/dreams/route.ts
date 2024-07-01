@@ -12,13 +12,15 @@ export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
-    const { context } = await req.json();
+    const { context, userId } = await req.json();
     const fileName = uuidv4();
+
+    if (!context || !userId) throw new Error("Params missing.");
 
     const result = await streamObject({
       model: openai('gpt-3.5-turbo'),
       schema: dreamSchema,
-      prompt: dreamPrompt(context),
+      prompt: dreamPrompt(context, userId),
 
       async onFinish(event) {
 
@@ -26,7 +28,7 @@ export async function POST(req: Request) {
         await uploadFile(base64Image, fileName);
 
         const dream = {
-          user_id: 1,
+          user_id: userId,
           dream_title: event.object?.analysis.dream_title,
           dream_context: context,
           dream_analysis: event.object?.analysis.dream_analysis,
