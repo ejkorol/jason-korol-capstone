@@ -44,6 +44,6 @@ export async function POST(req: Request) {
     return result.toTextStreamResponse();
 
   } catch(e: any) {
-    throw new Error(e.message)
+    return new Response(e.message, { status: 500 });
   };
 };
