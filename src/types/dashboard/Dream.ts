@@ -8,4 +8,5 @@ export interface Dream {
   dream_analysis: string;
   tags: Tag[];
   symbols: Symbol[];
+  created_at: string;
 };
