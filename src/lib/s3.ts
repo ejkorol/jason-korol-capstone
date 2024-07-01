@@ -14,7 +14,7 @@ const s3 = new S3Client({
 export const uploadFile = async (file: any, fileName: string) => {
 
   try {
-    const imageBuffer = decodeBase64Image(file)
+    const imageBuffer = decodeBase64Image(file);
 
     const params = {
       Bucket,
