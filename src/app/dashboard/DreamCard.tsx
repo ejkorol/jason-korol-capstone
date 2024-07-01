@@ -2,12 +2,16 @@ import { Dream, Tag } from "@/types/dashboard";
 import { Chip } from "@nextui-org/react";
 import { Spacer } from "@nextui-org/react";
 import { Card, CardBody } from "@nextui-org/react";
+import truncateText from "@/utils/truncateText";
 
 interface DreamCardProps {
   dream: Dream;
 };
 
 export default async function DreamCard({dream: {dream_title, dream_context, tags}}: DreamCardProps) {
+
+  const truncatedContext = truncateText(dream_context, 200);
+
   return (
     <div className="h-full w-full mb-6">
       <Card radius="sm" shadow="none" style={{ backgroundColor: "#F4F4F5" }}>
@@ -18,7 +22,7 @@ export default async function DreamCard({dream: {dream_title, dream_context, tag
           </div>
           <Spacer y={2}/>
           <div>
-            <p className="text-sm tracking-wide font-light" style={{ color: "#616161" }}>{dream_context}</p>
+            <p className="text-sm tracking-wide font-light" style={{ color: "#616161" }}>{truncatedContext}</p>
           </div>
           <Spacer y={2}/>
           <div className="flex gap-2">
