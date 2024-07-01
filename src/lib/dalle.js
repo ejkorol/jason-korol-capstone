@@ -10,7 +10,8 @@ export async function dalle(prompt) {
     prompt: prompt,
     n: 1,
     size: "1024x1024",
+    response_format: "b64_json"
   });
-  const image_url = response.data[0].url;
+  const image_url = response.data[0].b64_json;
   return image_url;
 };
