@@ -17,9 +17,10 @@ interface SymbolModalProps {
   isOpen: boolean | undefined;
   onOpenChange: (isOpen: boolean) => void;
   symbolId: Number;
+  onClose: () => void;
 };
 
-export default function SymbolModal({isOpen, onOpenChange, symbolId}: SymbolModalProps) {
+export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: SymbolModalProps) {
 
   const [ symbol, setSymbol ] = useState<Symbol>();
 
@@ -59,11 +60,11 @@ export default function SymbolModal({isOpen, onOpenChange, symbolId}: SymbolModa
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              <Button isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              <Button onPress={onClose} isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
             </div>
           </div>
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
+  );
 };

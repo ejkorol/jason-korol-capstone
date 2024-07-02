@@ -13,14 +13,14 @@ import CreateModal from "@/app/dashboard/CreateModal";
 
 function DashboardSearch() {
 
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onClose, onOpenChange } = useDisclosure();
 
   return (
     <div className="flex w-full pl-6 pr-6">
       <Input size="lg" radius="lg" variant="flat" placeholder="Search for your dreams" startContent={<SearchIcon size="20px" color="#bdbdbd" stroke="1.5px"/>} style={{ color: "#bdbdbd" }}/>
       <Spacer x={4}/>
       <Button onPress={onOpen} isIconOnly size="lg" radius="lg" style={{ backgroundColor: "#212121" }}><EditIcon size="24px" color="#ffffff" stroke="1.5px"/></Button>
-      <CreateModal isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
+      <CreateModal isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange} />
     </div>
   )
 };

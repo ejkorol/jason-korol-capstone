@@ -15,7 +15,7 @@ interface DreamFeedProps {
 export default function DreamFeed({ dreams }: DreamFeedProps) {
 
   const [ selected, setSelected ] = useState();
-  const { isOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange, onClose } = useDisclosure();
 
   const sortedDreams = [...dreams].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -32,7 +32,7 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
 
   return (
     <>
-    <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full pl-6 pr-6">
+    <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full pl-6 pr-6 mb-36">
       {sortedDreams.map((dream, index) => (
         <div key={dream.id} className="">
           {(index === 0 || !isSameDay(new Date(sortedDreams[index - 1].created_at), new Date(dream.created_at))) && (
@@ -42,7 +42,7 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
         </div>
       ))}
     </ScrollShadow>
-    <DreamModal dreamId={selected} isOpen={isOpen} onOpenChange={onOpenChange} />
+    <DreamModal dreamId={selected} isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange} />
     </>
   );
 };

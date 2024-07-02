@@ -3,7 +3,7 @@ import SymbolItem from "@/app/dashboard/symbols/SymbolItem";
 import SymbolModal from "@/app/dashboard/symbols/SymbolModal";
 import { Symbol } from "@/types/dashboard";
 import { useState } from "react";
-import { useDisclosure } from "@nextui-org/react";
+import { ScrollShadow, useDisclosure } from "@nextui-org/react";
 
 interface SymbolFeedProps {
   symbols: Symbol[]
@@ -12,7 +12,7 @@ interface SymbolFeedProps {
 export default function ({symbols}: SymbolFeedProps) {
 
   const [ selected, setSelected ] = useState(0);
-  const { isOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onClose, onOpenChange } = useDisclosure();
 
   const sortedSymbols = symbols.sort((a, b) =>
     a.symbol_name.toLowerCase() > b.symbol_name.toLowerCase() ? 1 : -1
@@ -28,16 +28,18 @@ export default function ({symbols}: SymbolFeedProps) {
   });
 
   return (
-    <div className="mt-6">
+    <>
+      <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full mb-36">
       {Object.keys(groupedSymbols).sort().map((letter) => (
         <div key={letter}>
-          <h3 className="font-mono mb-4 mt-8">{letter}</h3>
+          <h3 className="font-mono mb-4 mt-8 sticky top-0">{letter}</h3>
           {groupedSymbols[letter].map((symbol) => (
             <SymbolItem key={symbol.id} symbol={symbol} setSelected={setSelected} onOpenChange={onOpenChange} />
           ))}
         </div>
       ))}
-      <SymbolModal symbolId={selected} isOpen={isOpen} onOpenChange={onOpenChange} />
-    </div>
+      <SymbolModal onClose={onClose} symbolId={selected} isOpen={isOpen} onOpenChange={onOpenChange} />
+      </ScrollShadow>
+    </>
   );
 };

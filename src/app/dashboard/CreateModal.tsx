@@ -20,9 +20,10 @@ import StreamingText from "@/app/components/StreamingText/StreamingText";
 interface CreateModalProps {
   isOpen: boolean | undefined;
   onOpenChange: (isOpen: boolean) => void;
+  onClose: () => void;
 }
 
-export default function CreateModal({ isOpen, onOpenChange }: CreateModalProps) {
+export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateModalProps) {
 
   const [ dream, setDream ] = useState({
     context: "",
@@ -76,7 +77,7 @@ export default function CreateModal({ isOpen, onOpenChange }: CreateModalProps) 
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
               {!object?.analysis && (
-                <Button isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+                <Button onPress={onClose} isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
               )}
             </div>
             <div className="flex">
