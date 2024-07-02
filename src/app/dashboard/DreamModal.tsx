@@ -18,6 +18,7 @@ interface DreamModalProps {
 }
 
 export default function DreamModal(props: any) {
+
   return (
     <Modal hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
       <ModalContent>
