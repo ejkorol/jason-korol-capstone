@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   Spacer,
@@ -9,7 +8,6 @@ import {
   ModalHeader,
   ModalBody,
   ModalFooter,
-  Skeleton
 } from "@nextui-org/react";
 import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import ArrowRight from "@/app/icons/ArrowRightIcon";
@@ -19,7 +17,12 @@ import { dreamSchema } from "@/app/api/dreams/dreamSchema";
 import useGreeting from "@/utils/hooks/useGreeting";
 import StreamingText from "@/app/components/StreamingText/StreamingText";
 
-export default function CreateModal(props: object) {
+interface CreateModalProps {
+  isOpen: boolean | undefined;
+  onOpenChange: (isOpen: boolean) => void;
+}
+
+export default function CreateModal({ isOpen, onOpenChange }: CreateModalProps) {
 
   const [ dream, setDream ] = useState({
     context: "",
@@ -32,7 +35,7 @@ export default function CreateModal(props: object) {
   });
 
   return (
-    <Modal shouldBlockScroll={false} hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
+    <Modal shouldBlockScroll={false} hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col">
@@ -59,12 +62,12 @@ export default function CreateModal(props: object) {
                 <h3 className="mb-2">The symbols in your dream</h3>
                 <div className="flex flex-wrap gap-4">
                   {object.analysis.dream_symbols?.split(",").map((symbol) => {
-                    return <Chip className="text-sm" variant="shadow" radius="full" size="md">{symbol.trim()}</Chip>
+                    return <Chip key={symbol} className="text-sm" variant="shadow" radius="full" size="md">{symbol.trim()}</Chip>
                   })}
                 </div>
                 <Spacer y={4} />
                 <h3>What you described</h3>
-                <StreamingText text={dream.context} speed={100} />
+                <StreamingText text={dream.context} speed={15} />
               </>
             )}
           </div>
