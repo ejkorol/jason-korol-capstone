@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   Input,
   Button,
@@ -9,7 +9,7 @@ import { useDisclosure } from "@nextui-org/react";
 import SearchIcon from "@/app/icons/SearchIcon";
 import EditIcon from "@/app/icons/EditIcon";
 
-import CreateDreamEntry from "@/app/dashboard/CreateModal";
+import CreateModal from "@/app/dashboard/CreateModal";
 
 function DashboardSearch() {
 
@@ -20,7 +20,7 @@ function DashboardSearch() {
       <Input size="lg" radius="lg" variant="flat" placeholder="Search for your dreams" startContent={<SearchIcon size="20px" color="#bdbdbd" stroke="1.5px"/>} style={{ color: "#bdbdbd" }}/>
       <Spacer x={4}/>
       <Button onPress={onOpen} isIconOnly size="lg" radius="lg" style={{ backgroundColor: "#212121" }}><EditIcon size="24px" color="#ffffff" stroke="1.5px"/></Button>
-      <CreateDreamEntry isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
+      <CreateModal isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
     </div>
   )
 };
