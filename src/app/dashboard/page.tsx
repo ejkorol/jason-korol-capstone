@@ -17,7 +17,7 @@ async function fetchDreams(): Promise<Dream[]> {
 export default async function Dashboard() {
   const dreams = await fetchDreams();
   return (
-    <section className="flex flex-col h-screen w-full">
+    <section className="flex flex-col h-full w-full fixed">
       <StatusBar />
       <Search />
       <DreamFeed dreams={dreams} />
