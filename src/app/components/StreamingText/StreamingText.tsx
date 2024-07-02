@@ -6,7 +6,7 @@ interface StreamingTextProps {
   speed: number;
 }
 
-export default function StreamingText({ text, speed = 50 }: StreamingTextProps) {
+export default function StreamingText({ text, speed = 20 }: StreamingTextProps) {
 
   const [ displayedText, setDisplayedText ] = useState<string>("");
   const [ index, setIndex ] = useState<number>(0);
