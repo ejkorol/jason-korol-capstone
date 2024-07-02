@@ -14,8 +14,8 @@ async function fetchSymbols(): Promise<Symbol[]> {
 export default async function Symbols() {
   const symbols = await fetchSymbols();
   return (
-    <section className="flex flex-col h-full w-full p-6 fixed">
-      <h1 className="text-4xl tracking-wide">Symbols</h1>
+    <section className="flex flex-col h-full w-full fixed">
+      <h1 className="text-4xl tracking-wide pl-6">Symbols</h1>
       <SymbolFeed symbols={symbols} />
     </section>
   );

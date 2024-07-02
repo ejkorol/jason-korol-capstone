@@ -32,7 +32,7 @@ export default function ({symbols}: SymbolFeedProps) {
       <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full mb-36">
       {Object.keys(groupedSymbols).sort().map((letter) => (
         <div key={letter}>
-          <h3 className="font-mono mb-4 mt-8 sticky top-0">{letter}</h3>
+          <h3 className="font-mono mb-4 mt-8 sticky top-0 pl-6">{letter}</h3>
           {groupedSymbols[letter].map((symbol) => (
             <SymbolItem key={symbol.id} symbol={symbol} setSelected={setSelected} onOpenChange={onOpenChange} />
           ))}

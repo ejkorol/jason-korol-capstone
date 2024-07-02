@@ -16,7 +16,7 @@ export default function SymbolItem({symbol: { symbol_name, id }, setSelected, on
   };
 
   return (
-    <article className="flex items-center gap-4 mb-8 cursor-pointer" onClick={handleClick}>
+    <article className="flex p-6 items-center gap-4 cursor-pointer" onClick={handleClick}>
       <div><Image isBlurred width={45} className="aspect-square object-cover" radius="sm" src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"/></div>
       <div><p className="text-xl tracking-wide">{symbol_name}</p></div>
     </article>
