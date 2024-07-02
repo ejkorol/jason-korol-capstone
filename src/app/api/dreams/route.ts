@@ -44,7 +44,7 @@ export async function POST(req: Request) {
 
         const symbols = event.object?.analysis.dream_symbols.split(",");
         symbols?.forEach(async (symbol: string) => {
-          await db("symbols").insert({ dream_id: dreamId, user_id: dream.user_id, symbol_name: symbol, symbol_analysis: "some meaning" });
+          await db("symbols").insert({ dream_id: dreamId, user_id: dream.user_id, symbol_name: symbol.trim(), symbol_analysis: "some meaning" });
         });
       }
 
