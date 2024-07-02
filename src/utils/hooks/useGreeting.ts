@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 function useGreeting() {
 
   const [ time, setTime ] = useState("");
+  const [ date, setDate ] = useState("");
   const [ greeting, setGreeting ] = useState("");
   const [ loading, setLoading ] = useState(true);
 
@@ -16,6 +17,7 @@ function useGreeting() {
     setLoading(true);
     const d = new Date();
     setTime(d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }));
+    setDate(d.toLocaleDateString('en-US', { weekday: "long", month: "long", day: "numeric" }));
 
     const morning = "Good Morning";
     const afternoon = "Good Afternoon";
@@ -35,7 +37,7 @@ function useGreeting() {
     setLoading(false);
   };
 
-  return { time, greeting, loading };
+  return { time, date, greeting, loading };
 };
 
 export default useGreeting;
