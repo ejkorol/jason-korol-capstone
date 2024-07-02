@@ -6,6 +6,7 @@ export interface Dream {
   dream_title: string;
   dream_context: string;
   dream_analysis: string;
+  dream_image: string;
   tags: Tag[];
   symbols: Symbol[];
   created_at: string;
