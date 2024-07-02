@@ -7,13 +7,10 @@ interface SymbolFeedProps {
 
 export default async function ({symbols}: SymbolFeedProps) {
 
-  console.log(symbols)
-  // Sort symbols alphabetically by symbol_name
   const sortedSymbols = symbols.sort((a, b) =>
     a.symbol_name.toLowerCase() > b.symbol_name.toLowerCase() ? 1 : -1
   );
 
-  // Group symbols by their first letter
   const groupedSymbols: { [key: string]: Symbol[] } = {};
   sortedSymbols.forEach((symbol) => {
     const firstLetter = symbol.symbol_name.charAt(0).toUpperCase();
