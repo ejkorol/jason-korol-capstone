@@ -12,7 +12,7 @@ interface SymbolFeedProps {
 export default function ({symbols}: SymbolFeedProps) {
 
   const [ selected, setSelected ] = useState(0);
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpenChange } = useDisclosure();
 
   const sortedSymbols = symbols.sort((a, b) =>
     a.symbol_name.toLowerCase() > b.symbol_name.toLowerCase() ? 1 : -1
@@ -20,7 +20,7 @@ export default function ({symbols}: SymbolFeedProps) {
 
   const groupedSymbols: { [key: string]: Symbol[] } = {};
   sortedSymbols.forEach((symbol) => {
-    const firstLetter = symbol.symbol_name.charAt(0).toUpperCase();
+    const firstLetter = symbol.symbol_name.charAt(0);
     if (!groupedSymbols[firstLetter]) {
       groupedSymbols[firstLetter] = [];
     }
@@ -37,7 +37,7 @@ export default function ({symbols}: SymbolFeedProps) {
           ))}
         </div>
       ))}
-      <SymbolModal symbolId={selected} isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
+      <SymbolModal symbolId={selected} isOpen={isOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };
