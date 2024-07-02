@@ -32,7 +32,7 @@ export default function CreateModal(props: object) {
   });
 
   return (
-    <Modal hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
+    <Modal shouldBlockScroll={false} hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col">
