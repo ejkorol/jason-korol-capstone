@@ -2,14 +2,14 @@
 import {
   Button,
   Spacer,
-  Input,
   Chip,
   Textarea,
   Modal,
   ModalContent,
   ModalHeader,
   ModalBody,
-  ModalFooter
+  ModalFooter,
+  Skeleton
 } from "@nextui-org/react";
 import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import ArrowRight from "@/app/icons/ArrowRightIcon";
@@ -25,7 +25,7 @@ export default function CreateModal(props: object) {
     userId: 1
   });
   const { date } = useGreeting();
-  const { object, submit } = useObject({
+  const { object, submit, isLoading } = useObject({
     api: '/api/dreams',
     schema: dreamSchema
   });
@@ -55,13 +55,29 @@ export default function CreateModal(props: object) {
               <>
                 <Textarea minRows={20} readOnly value={object.analysis.dream_analysis} size="lg" fullWidth label="What did you dream about?" />
                 <Spacer y={4} />
-                <h3>The symbols in your dream</h3>
-                {object.analysis.dream_symbols?.split(",").forEach((symbol) => {
-                  <Chip className="text-sm" variant="shadow" radius="full" size="md">{symbol}</Chip>
-                })}
-                <Spacer y={4} />
-                <h3>What you described</h3>
-                <p className="text-sm text-neutral-500">{dream.context}</p>
+                <h3 className="mb-2">The symbols in your dream</h3>
+                <div className="flex flex-wrap gap-4">
+                  {object.analysis.dream_symbols?.split(",").map((symbol) => {
+                    return <Chip className="text-sm" variant="shadow" radius="full" size="md">{symbol.trim()}</Chip>
+                  })}
+                </div>
+                {isLoading && (
+                  <>
+                    <Skeleton className="w-1/2 rounded-lg mt-4">
+                      <div className="h-6 w-1/2"></div>
+                    </Skeleton>
+                    <Skeleton className="w-100 rounded-lg mt-4">
+                      <div className="h-36"></div>
+                    </Skeleton>
+                  </>
+                )}
+                {!isLoading && (
+                  <>
+                    <Spacer y={4} />
+                    <h3>What you described</h3>
+                    <p className="text-sm text-neutral-500">{dream.context}</p>
+                  </>
+                )}
               </>
             )}
           </div>
@@ -69,10 +85,17 @@ export default function CreateModal(props: object) {
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              <Button isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              {!object?.analysis && (
+                <Button isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              )}
             </div>
             <div className="flex">
-              <Button variant="light" size="lg" onClick={() => { submit(dream) }} endContent={ <ArrowRight color="#212121" size={18} stroke={1.5}/> }>Add to Journal</Button>
+              {!object?.analysis && (
+                <Button variant="light" size="lg" onClick={() => { submit(dream) }} endContent={ <ArrowRight color="#212121" size={18} stroke={1.5}/> }>Add to Journal</Button>
+              )}
+              {object?.analysis && (
+                <Button variant="light" size="lg">View dream</Button>
+              )}
             </div>
           </div>
         </ModalFooter>
