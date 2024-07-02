@@ -1,7 +1,13 @@
+"use client";
 import { Dream, Tag } from "@/types/dashboard";
-import { Chip } from "@nextui-org/react";
-import { Spacer } from "@nextui-org/react";
-import { Card, CardBody } from "@nextui-org/react";
+import {
+  Chip,
+  Spacer,
+  Card,
+  CardBody
+} from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
+import DreamModal from "@/app/dashboard/DreamModal";
 import truncateText from "@/utils/truncateText";
 import { format } from "date-fns";
 
@@ -9,14 +15,15 @@ interface DreamCardProps {
   dream: Dream;
 };
 
-export default async function DreamCard({dream: {dream_title, dream_context, tags, created_at}}: DreamCardProps) {
+export default function DreamCard({dream: {dream_title, dream_context, tags, created_at}}: DreamCardProps) {
 
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const truncatedContext = truncateText(dream_context, 200);
 
   return (
-    <div className="h-full w-full mb-6">
+    <div className="mb-6 cursor-pointer">
       <Card radius="sm" shadow="none" style={{ backgroundColor: "#F4F4F5" }}>
-        <CardBody>
+        <CardBody onClick={onOpen}>
           <div className="flex flex-row justify-between items-center">
             <div><h2 className="text-xl tracking-wide">{dream_title}</h2></div>
             <div><p className="text-sm font-mono tracking-tight">{format(new Date(created_at), `HH:mm`)}</p></div>
@@ -33,6 +40,7 @@ export default async function DreamCard({dream: {dream_title, dream_context, tag
           </div>
         </CardBody>
       </Card>
+      <DreamModal isOpen={isOpen} onOpen={onOpen} onOpenChange={onOpenChange} />
     </div>
   );
 };
