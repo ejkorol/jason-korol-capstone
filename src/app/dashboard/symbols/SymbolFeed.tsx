@@ -13,7 +13,6 @@ export default function ({symbols}: SymbolFeedProps) {
 
   const [ selected, setSelected ] = useState(0);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  console.log(selected)
 
   const sortedSymbols = symbols.sort((a, b) =>
     a.symbol_name.toLowerCase() > b.symbol_name.toLowerCase() ? 1 : -1
