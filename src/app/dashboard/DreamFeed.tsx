@@ -1,14 +1,21 @@
+"use client";
 import { Dream } from "@/types/dashboard";
 import { ScrollShadow } from "@nextui-org/react";
 import DreamCard from "@/app/dashboard/DreamCard";
 import { format, isSameDay } from "date-fns";
 import MoonLogo from "@/app/icons/MoonLogo";
+import { useDisclosure } from "@nextui-org/react";
+import DreamModal from "@/app/dashboard/DreamModal";
+import { useState } from "react";
 
 interface DreamFeedProps {
   dreams: Dream[];
 };
 
-export default async function DreamFeed({ dreams }: DreamFeedProps) {
+export default function DreamFeed({ dreams }: DreamFeedProps) {
+
+  const [ selected, setSelected ] = useState();
+  const { isOpen, onOpenChange } = useDisclosure();
 
   const sortedDreams = [...dreams].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
@@ -24,15 +31,18 @@ export default async function DreamFeed({ dreams }: DreamFeedProps) {
   };
 
   return (
+    <>
     <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full pl-6 pr-6">
       {sortedDreams.map((dream, index) => (
         <div key={dream.id} className="">
           {(index === 0 || !isSameDay(new Date(sortedDreams[index - 1].created_at), new Date(dream.created_at))) && (
             <h2 className="text-2xl tracking-wide mb-4">{format(new Date(dream.created_at), "iii MMM dd")}</h2>
           )}
-          <DreamCard key={dream.id} dream={dream} />
+          <DreamCard key={dream.id} dream={dream} onOpenChange={onOpenChange} setSelected={setSelected} />
         </div>
       ))}
     </ScrollShadow>
+    <DreamModal dreamId={selected} isOpen={isOpen} onOpenChange={onOpenChange} />
+    </>
   );
 };
