@@ -13,7 +13,7 @@ import {
 import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import ArrowRight from "@/app/icons/ArrowRightIcon";
 
-export default function createModal(props: object) {
+export default function CreateModal(props: object) {
   return (
     <Modal hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={props.isOpen} onOpenChange={props.onOpenChange}>
       <ModalContent>
@@ -45,5 +45,5 @@ export default function createModal(props: object) {
         </ModalFooter>
       </ModalContent>
     </Modal>
-  )
+  );
 };
