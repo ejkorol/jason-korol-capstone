@@ -17,6 +17,7 @@ import { experimental_useObject as useObject } from "ai/react";
 import { useState } from "react";
 import { dreamSchema } from "@/app/api/dreams/dreamSchema";
 import useGreeting from "@/utils/hooks/useGreeting";
+import StreamingText from "@/app/components/StreamingText/StreamingText";
 
 export default function CreateModal(props: object) {
 
@@ -25,7 +26,7 @@ export default function CreateModal(props: object) {
     userId: 1
   });
   const { date } = useGreeting();
-  const { object, submit, isLoading } = useObject({
+  const { object, submit } = useObject({
     api: '/api/dreams',
     schema: dreamSchema
   });
@@ -61,23 +62,9 @@ export default function CreateModal(props: object) {
                     return <Chip className="text-sm" variant="shadow" radius="full" size="md">{symbol.trim()}</Chip>
                   })}
                 </div>
-                {isLoading && (
-                  <>
-                    <Skeleton className="w-1/2 rounded-lg mt-4">
-                      <div className="h-6 w-1/2"></div>
-                    </Skeleton>
-                    <Skeleton className="w-100 rounded-lg mt-4">
-                      <div className="h-36"></div>
-                    </Skeleton>
-                  </>
-                )}
-                {!isLoading && (
-                  <>
-                    <Spacer y={4} />
-                    <h3>What you described</h3>
-                    <p className="text-sm text-neutral-500">{dream.context}</p>
-                  </>
-                )}
+                <Spacer y={4} />
+                <h3>What you described</h3>
+                <StreamingText text={dream.context} speed={100} />
               </>
             )}
           </div>
