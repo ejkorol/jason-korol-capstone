@@ -1,4 +1,3 @@
-"use client";
 import {
   Button,
   Textarea,
@@ -15,10 +14,10 @@ import { useState, useEffect } from "react";
 import { Symbol } from "@/types/dashboard";
 
 interface SymbolModalProps {
-  isOpen: Boolean;
-  onOpenChange: Function;
+  isOpen: boolean | undefined;
+  onOpenChange: (isOpen: boolean) => void;
   symbolId: Number;
-}
+};
 
 export default function SymbolModal({isOpen, onOpenChange, symbolId}: SymbolModalProps) {
 
@@ -34,10 +33,10 @@ export default function SymbolModal({isOpen, onOpenChange, symbolId}: SymbolModa
         console.error(e);
       };
     };
-    fetchSymbol();
+    if (symbolId) {
+      fetchSymbol();
+    };
   }, [symbolId]);
-
-  if (!symbol) return <p>loading...</p>
 
   return (
     <Modal hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
@@ -45,12 +44,12 @@ export default function SymbolModal({isOpen, onOpenChange, symbolId}: SymbolModa
         <ModalHeader>
           <div className="mt-4 flex flex-col">
             <Image isBlurred width={60} className="aspect-square object-cover" radius="sm" src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"/>
-            <h1 className="mt-4 text-3xl tracking-wide font-light">{symbol.symbol_name}</h1>
+            <h1 className="mt-4 text-3xl tracking-wide font-light">{symbol?.symbol_name}</h1>
           </div>
         </ModalHeader>
         <ModalBody>
           <div className="w-full">
-            <Textarea readOnly minRows={20} size="lg" fullWidth label="In your context" placeholder={symbol.symbol_analysis} />
+            <Textarea isReadOnly label="In your context" placeholder={symbol?.symbol_analysis} />
           </div>
           <div className="mt-4 w-full">
             <h2 className="mb-4">Appears in:</h2>
