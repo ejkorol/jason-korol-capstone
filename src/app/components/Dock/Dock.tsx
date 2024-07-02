@@ -11,7 +11,7 @@ export default async function Dock() {
       <div className="flex relative flex-col bg-gray-100/70 backdrop-blur-md">
         <div className="pb-4 pt-4 pl-4 pr-4 flex justify-between items-center">
           <div><Button as={Link} href="/dashboard" isIconOnly variant="light" size="lg" radius="full"><HomeIcon color="#212121" /></Button></div>
-          <div><Button isIconOnly variant="light" size="lg" radius="full"><JournalIcon color="#212121"/></Button></div>
+          <div><Button as={Link} href="/dashboard/symbols" isIconOnly variant="light" size="lg" radius="full"><JournalIcon color="#212121"/></Button></div>
           <div><Button isIconOnly variant="light" size="lg" radius="full"><QuestionIcon color="#212121" /></Button></div>
           <div><Button isIconOnly variant="light" size="lg" radius="full"><FriendsIcon color="#212121" /></Button></div>
         </div>
