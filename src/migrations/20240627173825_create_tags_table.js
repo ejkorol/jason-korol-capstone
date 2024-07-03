@@ -5,11 +5,6 @@
 export const up = (knex) => {
   return knex.schema.createTable("tags", (table) => {
     table.increments("id").primary();
-    table.integer("dream_id")
-      .unsigned()
-      .references("dreams.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
     table.integer("user_id")
       .unsigned()
       .references("users.id")
