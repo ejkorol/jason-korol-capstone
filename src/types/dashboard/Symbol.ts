@@ -4,6 +4,7 @@ interface Apperance {
 }
 
 export interface Symbol {
+  id?: number;
   symbol_id: number;
   user_id: number;
   symbol_name: string;
