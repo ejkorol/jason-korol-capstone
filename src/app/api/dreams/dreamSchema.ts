@@ -12,7 +12,7 @@ export const dreamSchema = z.object({
     dream_symbols: z.array(
       z.object({
         symbol_name: z.string().describe("unique one word symbol that occurs within the dream"),
-        symbol_analysis: z.string().describe("A detailed analysis of what the symbol means in the context of the dream and specifically to the user. What could this symbol mean in their waking world?")
+        symbol_analysis: z.string().describe("A detailed analysis in 255 characters or less of what the symbol means in the context of the dream and specifically to the user. What could this symbol mean in their waking world?")
       })
     ).max(5).describe("0-5 unique one word symbols that occur within the dream, along with their meaning")
   })
