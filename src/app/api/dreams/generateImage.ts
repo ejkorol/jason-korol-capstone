@@ -1,7 +1,6 @@
 import { dalle } from "@/lib/dalle";
-import { imagePrompt } from "./imagePrompt";
 
-export default async function generateImage(context: string) {
-  const prompt = imagePrompt(context);
+export default async function generateImage(context: string, promptGen: Function) {
+  const prompt = promptGen(context);
   return await dalle(prompt);
 };

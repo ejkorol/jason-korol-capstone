@@ -5,11 +5,6 @@
 export const up = (knex) => {
   return knex.schema.createTable("symbols", (table) => {
     table.increments("id").primary();
-    table.integer("dream_id")
-      .unsigned()
-      .references("dreams.id")
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
     table.integer("user_id")
       .unsigned()
       .references("users.id")
@@ -17,6 +12,7 @@ export const up = (knex) => {
       .onDelete("CASCADE");
     table.string("symbol_name").notNullable();
     table.string("symbol_analysis").notNullable();
+    table.string("symbol_image", 500).notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
   });
