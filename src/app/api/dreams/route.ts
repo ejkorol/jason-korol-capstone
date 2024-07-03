@@ -39,10 +39,10 @@ export async function POST(req: Request) {
         const dreamId = await db("dreams").insert(dream);
 
         event.object?.analysis.dream_tags.forEach(async (tag) => {
-          const tagInDatabase = await db("tags").where("tags.tag_name", tag.tag_name).first();
+          const tagInDatabase = await db("tags").where("tags.tag_name", tag.tag_name.toLowerCase()).first();
           // regex?
           if (!tagInDatabase) {
-            const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name })
+            const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() })
             await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId })
           } else {
             await db("tags_dreams").insert({ tag_id: tagInDatabase.tag_id, dream_id: dreamId })
@@ -50,14 +50,14 @@ export async function POST(req: Request) {
         });
 
         event.object?.analysis.dream_symbols.forEach(async (symbol) => {
-          const symbolInDatabase = await db("symbols").where("symbols.symbol_name", symbol.symbol_name).first();
+          const symbolInDatabase = await db("symbols").where("symbols.symbol_name", symbol.symbol_name.toLowerCase()).first();
           // regex?
           // check if symbol exists only for the user id as well (later)
           if (!symbolInDatabase) {
             const symbolImageFileName = uuidv4();
             const base64SymbolImage = await generateImage(symbol.symbol_name, symbolPrompt);
             await uploadFile(base64SymbolImage, symbolImageFileName);
-            const symbolId = await db("symbols").insert({ user_id: dream.user_id, symbol_name: symbol.symbol_name, symbol_analysis: symbol.symbol_analysis, symbol_image: getSignedUrl(symbolImageFileName) });
+            const symbolId = await db("symbols").insert({ user_id: dream.user_id, symbol_name: symbol.symbol_name.toLowerCase(), symbol_analysis: symbol.symbol_analysis, symbol_image: getSignedUrl(symbolImageFileName) });
             await db("symbols_dreams").insert({ symbol_id: symbolId, dream_id: dreamId });
           } else {
             await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.symbol_id, dream_id: dreamId });
