@@ -6,6 +6,6 @@ export function imagePrompt(context: string) {
 
 export function symbolPrompt(context: string) {
   return (
-    `Create a surreal image of this symbol that appears in my dreams: ${context}.`
+    `Create an image of a surreal icon for this symbol that appears in my dreams: ${context}. The scene should look minimal and have a slightly surreal atmosphere, with elements that blend reality and fantasy. Use muted, soft colors (preferably darker tones) to give the image a dreamy, etheral quality. Ensure the overall composition feels simple yet otherwordly, evoking the mysterious nature of this symbol.`
   )
 };
