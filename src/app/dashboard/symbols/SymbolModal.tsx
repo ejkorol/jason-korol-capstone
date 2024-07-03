@@ -44,7 +44,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col">
-            <Image isBlurred width={60} className="aspect-square object-cover" radius="sm" src="https://nextui-docs-v2.vercel.app/images/hero-card-complete.jpeg"/>
+            <Image isBlurred width={60} className="aspect-square object-cover" radius="sm" src={symbol?.symbol_image}/>
             <h1 className="mt-4 text-3xl tracking-wide font-light">{symbol?.symbol_name}</h1>
           </div>
         </ModalHeader>

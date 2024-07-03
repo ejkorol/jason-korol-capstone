@@ -62,8 +62,8 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
                 <Spacer y={4} />
                 <h3 className="mb-2">The symbols in your dream</h3>
                 <div className="flex flex-wrap gap-4">
-                  {object.analysis.dream_symbols?.split(",").map((symbol) => {
-                    return <Chip key={symbol} className="text-sm" variant="shadow" radius="full" size="md">{symbol.trim()}</Chip>
+                  {object.analysis.dream_symbols && object.analysis.dream_symbols?.map((symbol) => {
+                    return <Chip key={symbol?.symbol_name} className="text-sm" variant="shadow" radius="full" size="md">{symbol?.symbol_name}</Chip>
                   })}
                 </div>
                 <Spacer y={4} />

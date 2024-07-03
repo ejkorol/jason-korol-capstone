@@ -8,7 +8,8 @@ import {
   ModalBody,
   ModalFooter,
   Chip,
-  Image
+  Image,
+  ScrollShadow
 } from "@nextui-org/react";
 import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import { useState, useEffect } from "react";
@@ -55,6 +56,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
           </div>
         </ModalHeader>
         <ModalBody>
+            <ScrollShadow size={100}>
           <div className="w-full">
             <Textarea isReadOnly minRows={20} label="In your context" placeholder={dream?.dream_analysis}/>
           </div>
@@ -78,6 +80,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
                 })}
               </div>
           </div>
+        </ScrollShadow>
         </ModalBody>
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
