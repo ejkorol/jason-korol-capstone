@@ -4,6 +4,7 @@ import SymbolModal from "@/app/dashboard/symbols/SymbolModal";
 import { Symbol } from "@/types/dashboard";
 import { useState } from "react";
 import { ScrollShadow, useDisclosure } from "@nextui-org/react";
+import MoonLogo from "@/app/icons/MoonLogo";
 
 interface SymbolFeedProps {
   symbols: Symbol[]
@@ -26,6 +27,15 @@ export default function ({symbols}: SymbolFeedProps) {
     }
     groupedSymbols[firstLetter].push(symbol);
   });
+
+  if (symbols.length <= 0) {
+    return (
+      <div className="h-[80%] flex flex-col items-center justify-center">
+        <MoonLogo size={80} color="#D9D9D9" />
+        <h2 className="mt-6 text-lg text-neutral-300">Add a dream for new symbols.</h2>
+      </div>
+    );
+  };
 
   return (
     <>
