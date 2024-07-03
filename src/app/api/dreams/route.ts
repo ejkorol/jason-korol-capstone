@@ -7,6 +7,7 @@ import { dreamPrompt } from "./dreamPrompt";
 import { uploadFile } from "@/lib/s3";
 import { getSignedUrl } from "@/utils/getSignedUrl";
 import generateImage from "./generateImage";
+import { imagePrompt, symbolPrompt } from "./imagePrompt";
 
 export const maxDuration = 30;
 
@@ -24,7 +25,7 @@ export async function POST(req: Request) {
 
       async onFinish(event) {
 
-        const base64Image = await generateImage(context);
+        const base64Image = await generateImage(context, imagePrompt);
         await uploadFile(base64Image, fileName);
 
         const dream = {
@@ -37,14 +38,30 @@ export async function POST(req: Request) {
 
         const dreamId = await db("dreams").insert(dream);
 
-        const tags = event.object?.analysis.dream_tags.split(",");
-        tags?.forEach(async (tag: string) => { 
-          await db("tags").insert({ dream_id: dreamId, user_id: dream.user_id, tag_name: tag.trim() })
+        event.object?.analysis.dream_tags.forEach(async (tag) => {
+          const tagInDatabase = await db("tags").where("tags.tag_name", tag.tag_name).first();
+          // regex?
+          if (!tagInDatabase) {
+            const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name })
+            await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId })
+          } else {
+            await db("tags_dreams").insert({ tag_id: tagInDatabase.tag_id, dream_id: dreamId })
+          };
         });
 
-        const symbols = event.object?.analysis.dream_symbols.split(",");
-        symbols?.forEach(async (symbol: string) => {
-          await db("symbols").insert({ dream_id: dreamId, user_id: dream.user_id, symbol_name: symbol.trim(), symbol_analysis: "some meaning" });
+        event.object?.analysis.dream_symbols.forEach(async (symbol) => {
+          const symbolInDatabase = await db("symbols").where("symbols.symbol_name", symbol.symbol_name).first();
+          // regex?
+          // check if symbol exists only for the user id as well (later)
+          if (!symbolInDatabase) {
+            const symbolImageFileName = uuidv4();
+            const base64SymbolImage = await generateImage(symbol.symbol_name, symbolPrompt);
+            await uploadFile(base64SymbolImage, symbolImageFileName);
+            const symbolId = await db("symbols").insert({ user_id: dream.user_id, symbol_name: symbol.symbol_name, symbol_analysis: symbol.symbol_analysis, symbol_image: getSignedUrl(symbolImageFileName) });
+            await db("symbols_dreams").insert({ symbol_id: symbolId, dream_id: dreamId });
+          } else {
+            await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.symbol_id, dream_id: dreamId });
+          };
         });
       }
 
