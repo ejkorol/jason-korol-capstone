@@ -3,7 +3,7 @@ import { Symbol } from "@/types/dashboard";
 
 async function fetchSymbols(): Promise<Symbol[]> {
   const API_URL = process.env.API_URL;
-  const res = await fetch(`${API_URL}/users/symbols/1`, { cache: 'no-cache' } );
+  const res = await fetch(`${API_URL}/users/1/symbols`, { cache: 'no-cache' } );
   if (!res.ok) {
     throw new Error('Failed to fetch');
   };
