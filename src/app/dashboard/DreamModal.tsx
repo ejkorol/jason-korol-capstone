@@ -1,4 +1,4 @@
-import { Dream } from "@/types/dashboard";
+import { Dream, Tag, Symbol } from "@/types/dashboard";
 import {
   Button,
   Textarea,
@@ -64,11 +64,19 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
           </div>
           <div className="mt-4 w-full">
             <h2 className="mb-4">Symbols:</h2>
-            <Chip className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>some dream</Chip>
+              <div className="flex flex-wrap gap-4">
+                {dream.symbols.map((symbol: Symbol) => {
+                  return <Chip key={symbol.symbol_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{symbol.symbol_name}</Chip>
+                })}
+              </div>
           </div>
           <div className="mt-4 w-full">
             <h2 className="mb-4">Tags:</h2>
-            <Chip className="text-sm" radius="full" size="md">some dream</Chip>
+              <div className="flex flex-wrap gap-4">
+                {dream.tags.map((tag: Tag) => {
+                  return <Chip key={tag.tag_id} className="text-sm" radius="full" size="md">{tag.tag_name}</Chip>
+                })}
+              </div>
           </div>
         </ModalBody>
         <ModalFooter>

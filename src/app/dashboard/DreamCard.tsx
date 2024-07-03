@@ -39,7 +39,7 @@ export default function DreamCard({dream: {id, dream_title, dream_context, tags,
           <Spacer y={2}/>
           <div className="flex gap-2 flex-wrap">
           {tags.map((tag: Tag) => {
-            return <Chip key={tag.id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{tag.tag_name}</Chip>
+            return <Chip key={tag.tag_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{tag.tag_name}</Chip>
           })}
           </div>
         </CardBody>

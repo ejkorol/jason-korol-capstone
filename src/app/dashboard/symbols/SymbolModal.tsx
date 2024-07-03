@@ -29,7 +29,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
       try {
         const res = await fetch(`/api/users/1/symbols/${symbolId}`);
         const data = await res.json();
-        setSymbol(data[0]);
+        setSymbol(data);
       } catch (e) {
         console.error(e);
       };
@@ -54,7 +54,11 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
           </div>
           <div className="mt-4 w-full">
             <h2 className="mb-4">Appears in:</h2>
-            <Chip className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>some dream</Chip>
+            <div className="flex flex-wrap gap-4">
+              {symbol?.apperances.map((apperance) => {
+                return <Chip key={apperance.dream_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{apperance.dream_title}</Chip>
+              })}
+            </div>
           </div>
         </ModalBody>
         <ModalFooter>
