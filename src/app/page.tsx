@@ -19,7 +19,7 @@ export default async function Home() {
           <p className="font-extralight text-md">Lucid helps you gain clarity and understanding of your dreams, empowering you to explore your subconscious mind and uncover hidden insights in your waking day.</p>
           <div className="flex gap-4 mt-8">
             <Button href="/signup" as={Link} variant="shadow" size="lg" radius="full" className="text-sm" style={{ backgroundColor: "#212121", color: "#ffffff" }}>Let's Get Started</Button>
-            <Button href="/signin" as={Link} size="lg" radius="full" className="text-sm" variant="light" style={{ color: "#212121" }}>Login Instead</Button>
+            <Button href="/login" as={Link} size="lg" radius="full" className="text-sm" variant="light" style={{ color: "#212121" }}>Login Instead</Button>
           </div>
         </main>
       </div>
