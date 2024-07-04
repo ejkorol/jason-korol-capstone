@@ -45,7 +45,7 @@ export async function POST(req: Request) {
             const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() })
             await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId })
           } else {
-            await db("tags_dreams").insert({ tag_id: tagInDatabase.tag_id, dream_id: dreamId })
+            await db("tags_dreams").insert({ tag_id: tagInDatabase.id, dream_id: dreamId })
           };
         });
 
@@ -60,7 +60,7 @@ export async function POST(req: Request) {
             const symbolId = await db("symbols").insert({ user_id: dream.user_id, symbol_name: symbol.symbol_name.toLowerCase(), symbol_analysis: symbol.symbol_analysis, symbol_image: getSignedUrl(symbolImageFileName) });
             await db("symbols_dreams").insert({ symbol_id: symbolId, dream_id: dreamId });
           } else {
-            await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.symbol_id, dream_id: dreamId });
+            await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.id, dream_id: dreamId });
           };
         });
       }

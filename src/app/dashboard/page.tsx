@@ -6,7 +6,7 @@ import DreamFeed from "@/app/dashboard/DreamFeed";
 
 async function fetchDreams(): Promise<Dream[]> {
   const API_URL = process.env.API_URL;
-  const res = await fetch(`${API_URL}/users/1/dreams`, { next: { revalidate: 120 } });
+  const res = await fetch(`${API_URL}/users/1/dreams`, { cache: 'no-cache' });
   if (!res.ok) {
     throw new Error('Failed to fetch');
   };
