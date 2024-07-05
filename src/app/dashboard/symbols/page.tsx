@@ -5,7 +5,7 @@ import { getSession } from "@/lib/auth";
 async function fetchSymbols(): Promise<Symbol[]> {
   try {
     const session = await getSession();
-    const res = await fetch(`${process.env.API_URL}/users/${session.userId}/dreams`, { cache: 'no-cache' });
+    const res = await fetch(`${process.env.API_URL}/users/${session.userId}/symbols`, { cache: 'no-cache' });
     if (!res.ok) {
       throw new Error("Failed to fetch");
     };
