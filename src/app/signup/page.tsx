@@ -5,12 +5,15 @@ import {getLocalTimeZone} from "@internationalized/date";
 import {useDateFormatter} from "@react-aria/i18n";
 
 import { Button } from "@nextui-org/react";
+import { useRouter } from "next/navigation";
 
 import UserForm from "@/app/signup/UserForm";
 import CredentialsForm from "@/app/signup/CredentialsForm";
 import BirthForm from "@/app/signup/BirthForm";
 
 export default function Signup() {
+
+  const router = useRouter();
 
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -120,7 +123,7 @@ export default function Signup() {
             size="lg"
             isIconOnly={currentPage !== 1 ? true : false}
             variant="light"
-            onPress={() => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
+            onPress={ currentPage === 1 ? () => router.push("/") : () => setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev))}
           >
             {currentPage === 1 && (
               "Go back"

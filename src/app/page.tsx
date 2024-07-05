@@ -1,6 +1,6 @@
-import { cookies } from "next/headers";
 import MoonLogo from "@/app/icons/MoonLogo";
 import StarryBackground from "@/app/components/StarryBackground/StarryBackground";
+import { getSession } from "@/lib/auth";
 
 import {
   Button,
@@ -9,7 +9,7 @@ import {
 
 export default async function Home() {
 
-  const isLoggedIn = cookies().get("Authorization");
+  const isLoggedIn = await getSession();
 
   return (
     <section className="flex w-screen h-screen items-center justify-center">

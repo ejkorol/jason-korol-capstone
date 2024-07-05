@@ -1,3 +1,4 @@
+"use client";
 import { IconProps } from "@/types/icons";
 
 export default function HomeIcon({ size, color, stroke }: IconProps) {

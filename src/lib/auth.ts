@@ -1,3 +1,6 @@
+"use server";
+
+import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 import * as jose from "jose";
 
@@ -17,4 +20,9 @@ export async function getSession() {
 export async function getUser() {
   const session = await getSession();
   return session.user;
+};
+
+export async function removeSession() {
+  cookies().delete("Authorization");
+  return redirect("/");
 };
