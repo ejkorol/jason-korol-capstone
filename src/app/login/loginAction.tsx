@@ -18,15 +18,16 @@ export default async function loginAction(currentState: any, formData: FormData)
 
   const json = await res.json();
 
-  cookies().set("Authorization", json.token, {
-    secure: true,
-    httpOnly: true,
-    path: "/",
-    sameSite: "strict",
-  });
 
-  if (!res.ok) {
-    return json.error;
+  if (res.ok) {
+    cookies().set("Authorization", json.token, {
+      secure: true,
+      httpOnly: true,
+      path: "/",
+      sameSite: "strict",
+    });
+  } else {
+    return json.error
   };
 
   redirect("/dashboard");
