@@ -1,14 +1,18 @@
 import SymbolFeed from "@/app/dashboard/symbols/SymbolFeed";
 import { Symbol } from "@/types/dashboard";
+import { getSession } from "@/lib/auth";
 
 async function fetchSymbols(): Promise<Symbol[]> {
-  const API_URL = process.env.API_URL;
-  const res = await fetch(`${API_URL}/users/1/symbols`, { cache: 'no-cache' });
-  if (!res.ok) {
-    throw new Error('Failed to fetch');
+  try {
+    const session = await getSession();
+    const res = await fetch(`${process.env.API_URL}/users/${session.userId}/dreams`, { cache: 'no-cache' });
+    if (!res.ok) {
+      throw new Error("Failed to fetch");
+    };
+    return res.json();
+  } catch (err: any) {
+    throw new Error(err);
   };
-
-  return res.json();
 };
 
 export default async function Symbols() {
