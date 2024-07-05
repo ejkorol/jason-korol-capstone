@@ -1,8 +1,6 @@
 "use client";
 import { useState } from "react";
 import { useCountries, useStates, useCities } from "@/utils/hooks/useLocations";
-import {getLocalTimeZone} from "@internationalized/date";
-import {useDateFormatter} from "@react-aria/i18n";
 
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
@@ -36,8 +34,6 @@ export default function Signup() {
   const countries = useCountries();
   const states = useStates(countryCode);
   const cities = useCities(countryCode, stateCode);
-
-  let formatter = useDateFormatter({dateStyle: "full"});
 
   const validateUserForm = () => {
     return firstName !== "" && lastName !== "" && username !== "";
@@ -77,8 +73,8 @@ export default function Signup() {
       username: username.toLowerCase(),
       email: email.toLowerCase(),
       password,
-      dobDate: formatter.format(dobDate.toDate(getLocalTimeZone())),
-      dobTime: `${dobTime.hour.toString().padStart(2, '0')}:${dobTime.minute.toString().padStart(2, '0')}:${dobTime.second.toString().padStart(2, '0')}:${dobTime.millisecond.toString().padStart(3, '0')}`,
+      dobDate: `${dobDate.year}-${dobDate.month.toString().padStart(2, '0')}-${dobDate.day.toString().padStart(2, '0')}`,
+      dobTime: `${dobTime.hour.toString().padStart(2, '0')}:${dobTime.minute.toString().padStart(2, '0')}:${dobTime.second.toString().padStart(2, '0')}:${dobTime.millisecond.toString().padStart(2, '0')}`,
       mbti: mbti.toLowerCase(),
       dobLocation: `${city} ${countryCode} ${stateCode}`,
     };
