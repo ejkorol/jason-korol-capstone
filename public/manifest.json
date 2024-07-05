@@ -1,0 +1,14 @@
+{
+  "name": "Lucid",
+  "short_name": "Lucid",
+  "theme_color": "#fafafa",
+  "background_color": "#fafafa",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {}
+  ],
+  "splash_pages": null
+}
