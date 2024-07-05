@@ -8,12 +8,18 @@ import { uploadFile } from "@/lib/s3";
 import { getSignedUrl } from "@/utils/getSignedUrl";
 import generateImage from "./generateImage";
 import { imagePrompt, symbolPrompt } from "./imagePrompt";
+import { decrypt } from "@/lib/auth";
+import { cookies } from "next/headers";
 
 export const maxDuration = 30;
 
 export async function POST(req: Request) {
   try {
-    const { context, userId } = await req.json();
+    const token = cookies().get("Authorization");
+    if (!token) return;
+    const { userId } = await decrypt(token.value);
+
+    const { context } = await req.json();
     const fileName = uuidv4();
 
     if (!context || !userId) throw new Error("Params missing.");
@@ -40,7 +46,6 @@ export async function POST(req: Request) {
 
         event.object?.analysis.dream_tags.forEach(async (tag) => {
           const tagInDatabase = await db("tags").where("tags.tag_name", tag.tag_name.toLowerCase()).first();
-          // regex?
           if (!tagInDatabase) {
             const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() })
             await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId })
@@ -51,8 +56,6 @@ export async function POST(req: Request) {
 
         event.object?.analysis.dream_symbols.forEach(async (symbol) => {
           const symbolInDatabase = await db("symbols").where("symbols.symbol_name", symbol.symbol_name.toLowerCase()).first();
-          // regex?
-          // check if symbol exists only for the user id as well (later)
           if (!symbolInDatabase) {
             const symbolImageFileName = uuidv4();
             const base64SymbolImage = await generateImage(symbol.symbol_name, symbolPrompt);

@@ -27,7 +27,6 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
 
   const [ dream, setDream ] = useState({
     context: "",
-    userId: 1
   });
   const { date } = useGreeting();
   const { object, submit } = useObject({

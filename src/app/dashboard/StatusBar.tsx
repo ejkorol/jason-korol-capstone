@@ -2,7 +2,11 @@
 import useGreeting from "@/utils/hooks/useGreeting";
 import { Skeleton } from "@nextui-org/react";
 
-export default function StatusBar() {
+interface StatusBarProps {
+  user: string;
+};
+
+export default function StatusBar({user}: StatusBarProps) {
 
   const { time, greeting, loading } = useGreeting();
 
@@ -25,7 +29,7 @@ export default function StatusBar() {
     <div className="flex w-full p-6">
       <div className="flex flex-col">
         <h1 className="text-4xl tracking-wide">{ time }</h1>
-        <h2 className="text-2xl tracking-wide font-light text-neutral-500 mt-4">{ greeting }, Yam</h2>
+        <h2 className="text-2xl tracking-wide font-light text-neutral-500 mt-4 capitalize">{ greeting }, {user}</h2>
       </div>
     </div>
   );
