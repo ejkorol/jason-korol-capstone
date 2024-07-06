@@ -10,9 +10,9 @@ export const up = (knex) => {
       .references("users.id")
       .onUpdate("CASCADE")
       .onDelete("CASCADE");
-    table.string("symbol_name").notNullable();
-    table.string("symbol_analysis").notNullable();
-    table.string("symbol_image", 500).notNullable();
+    table.string("symbol_name", 1000).notNullable();
+    table.string("symbol_analysis", 1000).notNullable();
+    table.string("symbol_image", 1000).notNullable();
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
   });
