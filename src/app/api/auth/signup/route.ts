@@ -1,6 +1,7 @@
 import db from "@/lib/db-instance";
 import bcrypt from "bcrypt";
 import { getSigns } from "@/utils/birthChart";
+import * as jose from "jose";
 
 const saltRounds = 10;
 
@@ -10,10 +11,7 @@ export async function POST(req: Request) {
 
     const existingUser = await db("users").where({ email: user.email }).first();
     if (existingUser) {
-      return new Response("User already exists.", {
-        headers: { "Content-Type": "application/json" },
-        status: 409
-      });
+      return Response.json({ error: "User already exists" }, { status: 409 });
     };
 
     const signs = getSigns(user.dobDate, user.dobTime);
@@ -32,16 +30,18 @@ export async function POST(req: Request) {
       moon_sign: signs.moonSign,
       display_pic: null
     };
-    const [newUserId] = await db("users").insert(newUser);
+    await db("users").insert(newUser);
 
-    const createdUser = await db("users").where({
-      id: newUserId
-    });
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
-    return new Response(JSON.stringify(createdUser), {
-      headers: { "Content-Type": "application/json" },
-      status: 201
-    });
+    const token = await new jose.SignJWT({
+      userId: user.id, email: user.email, user: user.first_name
+    })
+      .setProtectedHeader({ alg: "HS256" })
+      .setExpirationTime("72h")
+      .sign(secret);
+
+    return Response.json({ token });
 
   } catch (e: any) {
     return new Response(e.message, { status: 500 });
