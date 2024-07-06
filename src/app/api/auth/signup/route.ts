@@ -26,16 +26,16 @@ export async function POST(req: Request) {
       dob_date: user.dobDate,
       dob_time: user.dobTime,
       dob_location: user.dobLocation,
-      sun_sign: signs.sunSign,
-      moon_sign: signs.moonSign,
+      sun_sign: signs.sunSign.name,
+      moon_sign: signs.moonSign.name,
       display_pic: null
     };
-    await db("users").insert(newUser);
+    const [userId] = await db("users").insert(newUser);
 
     const secret = new TextEncoder().encode(process.env.JWT_SECRET);
 
     const token = await new jose.SignJWT({
-      userId: user.id, email: user.email, user: user.first_name
+      userId: userId, email: newUser.email, user: newUser.first_name
     })
       .setProtectedHeader({ alg: "HS256" })
       .setExpirationTime("72h")
