@@ -15,8 +15,6 @@ export function getSigns(birthDate: string, birthTime: string) {
   return zodiacSigns;
 };
 
-
-/* CALCULATE SIGNS */
 function mapZodiac(radians: number) {
   const degreesValue = radians * (180 / Math.PI);
   const index = Math.floor(degreesValue / 30) % 12;
@@ -33,13 +31,11 @@ function calculateZodiacs(positions: any) {
   };
 };
 
-/* GET JULIAN DAY */
 function toJulianDay(date: string, time: string) {
   const T = new Date(`${date}T${time}`);
   return julian.CalendarGregorianToJD(T.getFullYear(), T.getMonth() + 1, T.getDate(), T.getHours(), T.getMinutes(), T.getSeconds());
 };
 
-/* SOLAR POSITION */
 function calculatePlanetaryPositions(jd: number) {
   const earthEphemeris = new planetposition.Planet(data.vsop87Bearth);
 
