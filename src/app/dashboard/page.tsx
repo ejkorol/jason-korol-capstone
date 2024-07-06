@@ -2,7 +2,6 @@ import { Dream } from "@/types/dashboard";
 import { getSession, getUser } from "@/lib/auth";
 
 import StatusBar from "@/app/dashboard/StatusBar";
-import Search from "@/app/dashboard/Search";
 import DreamFeed from "@/app/dashboard/DreamFeed";
 
 const { signal } = new AbortController()
@@ -26,7 +25,6 @@ export default async function Dashboard() {
   return (
     <section className="flex flex-col h-full w-full fixed">
       <StatusBar user={user as string} />
-      <Search/>
       <DreamFeed dreams={dreams} />
     </section>
   );
