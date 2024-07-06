@@ -7,6 +7,7 @@ import MoonLogo from "@/app/icons/MoonLogo";
 import { useDisclosure } from "@nextui-org/react";
 import DreamModal from "@/app/dashboard/DreamModal";
 import { useState } from "react";
+import Search from "@/app/dashboard/Search";
 
 interface DreamFeedProps {
   dreams: Dream[];
@@ -16,8 +17,17 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
 
   const [ selected, setSelected ] = useState();
   const { isOpen, onOpenChange, onClose } = useDisclosure();
+  const [ filteredDreams, setFilteredDreams ] = useState(dreams);
 
-  const sortedDreams = [...dreams].sort((a, b) => {
+  const handleSearch = (query: string) => {
+    const filtered = dreams.filter(dream =>
+      dream.dream_title.toLowerCase().includes(query.toLowerCase()) ||
+      dream.dream_analysis.toLowerCase().includes(query.toLowerCase())
+    );
+    setFilteredDreams(filtered);
+  };
+
+  const sortedDreams = [...filteredDreams].sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
   });
 
@@ -32,6 +42,7 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
 
   return (
     <>
+    <Search handleSearch={handleSearch}/>
     <ScrollShadow hideScrollBar size={100} className="flex flex-col mt-12 w-full pl-6 pr-6 mb-36">
       {sortedDreams.map((dream, index) => (
         <div key={dream.id} className="">
