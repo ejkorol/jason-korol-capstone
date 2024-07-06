@@ -2,6 +2,47 @@
 
 (im)proved dream journal.
 
+## !IMPORTANT - README
+
+### ENV
+
+Please follow the `.env.sample` to correctly instantiate new instances of API keys, Database connection along with other secrets. 
+
+### MIGRATING WITH KNEX
+
+There is a built in script located in `package.json` for `npm run migrate`.
+
+Please use this script, as it is mapped to the correct order of migrations that need to occur.
+
+Before migrating, temporarily change the database connection inside: `./src/lib/db.js` from `PROCESS.ENV` to strings.
+
+For example:
+```
+  client: "mysql2",
+  connection: {
+    host: "127.0.0.1",
+    database: "lucid",
+    user: "root",
+    password: "rootroot",
+    charset: "utf8",
+  },
+  migrations: {
+    directory: "../migrations/"
+  },
+  seeds: {
+    directory: "../seeds/"
+  }
+};
+```
+
+*This needs to be done when running the script, due to the runtime engine being able to parse environmental variables within NextJS.*
+
+> Revert the changes after the migration script is complete.
+
+### SEEDING WITH KNEX
+
+There is no seeds currently.
+
 ## Overview
 
 Lucid is a journal app for users to record your dreams, and provide a high level overview of the meaning of your dream based on your personality type and your birthchart.
