@@ -31,12 +31,15 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
     context: "",
   });
   const { date } = useGreeting();
-  const { object, submit, isLoading } = useObject({
+  const { object, submit, isLoading, error } = useObject({
     api: '/api/dreams',
     schema: dreamSchema
   });
 
   useEffect(() => {
+    if (error) {
+      toast.error("Something went wrong...");
+    }
     if (isLoading) {
       toast.loading("Analyzing...", {
         id: "loading"
@@ -89,7 +92,7 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              {!object?.analysis || !isLoading && (
+              {!object?.analysis && !isLoading && (
                 <Button onPress={handleClose} isIconOnly variant="light" size="lg">{`<--`}</Button>
               )}
             </div>
