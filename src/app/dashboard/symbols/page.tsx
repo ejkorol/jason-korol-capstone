@@ -19,7 +19,9 @@ export default async function Symbols() {
   const symbols = await fetchSymbols();
   return (
     <section className="flex flex-col h-full w-full fixed">
-      <h1 className="text-4xl tracking-wide pl-6">Symbols</h1>
+      <div className="flex flex-col p-6">
+        <h1 className="text-4xl tracking-wide">Symbols</h1>
+      </div>
       <SymbolFeed symbols={symbols} />
     </section>
   );
