@@ -35,9 +35,9 @@ export default function CredentialsForm({firstName, email, password, confirmPass
     <>
       <h1 className="text-4xl tracking-wide">You're doing great,<br/>{firstName}</h1>
       <h2 className="text-2xl tracking-wide font-light mt-4">We'll need your email so you can log back in</h2>
-      <Input fullWidth size="lg" label="Email" type="email" isInvalid={isEmailInvalid} color={isEmailInvalid ? "danger" : "default"} errorMessage="Please enter a valid email" isRequired value={email} onChange={(e) => setEmail(e.target.value)} />
-      <Input className="mt-4" type="password" fullWidth size="lg" isInvalid={isPasswordInvalid} color={isPasswordInvalid ? "danger": "default"} label="Password" isRequired errorMessage="Password must be at least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <Input fullWidth size="lg" type="password" label="Confirm Password" isRequired isInvalid={isConfirmPasswordInvalid} color={isConfirmPasswordInvalid ? "danger" : "default"} value={confirmPassword} errorMessage="Passwords do not match" onChange={(e) => setConfirmPassword(e.target.value)} />
+      <Input autoComplete="off" fullWidth size="lg" label="Email" type="email" isInvalid={isEmailInvalid} color={isEmailInvalid ? "danger" : "default"} errorMessage="Please enter a valid email" isRequired value={email} onChange={(e) => setEmail(e.target.value)} />
+      <Input autoComplete="off" className="mt-4" type="password" fullWidth size="lg" isInvalid={isPasswordInvalid} color={isPasswordInvalid ? "danger": "default"} label="Password" isRequired errorMessage="Password must be at least 8 characters" value={password} onChange={(e) => setPassword(e.target.value)} />
+      <Input autoComplete="off" fullWidth size="lg" type="password" label="Confirm Password" isRequired isInvalid={isConfirmPasswordInvalid} color={isConfirmPasswordInvalid ? "danger" : "default"} value={confirmPassword} errorMessage="Passwords do not match" onChange={(e) => setConfirmPassword(e.target.value)} />
     </>
   );
 };
