@@ -2,6 +2,8 @@
 import { useState } from "react";
 import { useCountries, useStates, useCities } from "@/utils/hooks/useLocations";
 
+import signupAction from "./signupAction";
+
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
 
@@ -78,25 +80,9 @@ export default function Signup() {
       mbti: mbti.toLowerCase(),
       dobLocation: `${city}%${countryCode}%${stateCode}`,
     };
+    const signupActionWithData = signupAction.bind(null, formData);
+    await signupActionWithData();
 
-    try {
-      const res = await fetch(`/api/auth/signup`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (!res.ok) {
-        throw new Error('Error');
-      };
-
-      const data = res.json();
-      return console.log(data);
-    } catch (e: any) {
-      throw new Error(e);
-    };
   };
 
   return (
