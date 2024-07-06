@@ -1,5 +1,6 @@
 import db from "@/lib/db-instance";
 import bcrypt from "bcrypt";
+import { getSigns } from "@/utils/birthChart";
 
 const saltRounds = 10;
 
@@ -15,6 +16,8 @@ export async function POST(req: Request) {
       });
     };
 
+    const signs = getSigns(user.dobDate, user.dobTime);
+
     const newUser = {
       username: user.username,
       first_name: user.firstName,
@@ -25,6 +28,8 @@ export async function POST(req: Request) {
       dob_date: user.dobDate,
       dob_time: user.dobTime,
       dob_location: user.dobLocation,
+      sun_sign: signs.sunSign,
+      moon_sign: signs.moonSign,
       display_pic: null
     };
     const [newUserId] = await db("users").insert(newUser);
