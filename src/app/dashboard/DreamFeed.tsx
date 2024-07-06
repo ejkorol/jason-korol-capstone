@@ -22,7 +22,8 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
   const handleSearch = (query: string) => {
     const filtered = dreams.filter(dream =>
       dream.dream_title.toLowerCase().includes(query.toLowerCase()) ||
-      dream.dream_analysis.toLowerCase().includes(query.toLowerCase())
+      dream.dream_analysis.toLowerCase().includes(query.toLowerCase()) ||
+      dream.dream_context.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredDreams(filtered);
   };
