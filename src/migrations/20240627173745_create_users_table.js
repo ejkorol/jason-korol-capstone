@@ -14,8 +14,8 @@ export const up = (knex) => {
     table.string("dob_date");
     table.string("dob_time");
     table.string("dob_location");
-    table.string("sunSign");
-    table.string("moonSign");
+    table.string("sun_sign");
+    table.string("moon_sign");
     table.string("display_pic");
     table.timestamp("created_at").defaultTo(knex.fn.now());
     table.timestamp("updated_at").defaultTo(knex.raw("CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP"));
