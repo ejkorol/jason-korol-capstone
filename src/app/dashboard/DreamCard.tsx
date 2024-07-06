@@ -18,6 +18,7 @@ interface DreamCardProps {
 export default function DreamCard({dream: {id, dream_title, dream_context, tags, created_at}, onOpenChange, setSelected}: DreamCardProps) {
 
   const truncatedContext = truncateText(dream_context, 200);
+  const truncatedTitle = truncateText(dream_title, 26);
 
   function handleClick() {
     setSelected(id);
@@ -29,7 +30,7 @@ export default function DreamCard({dream: {id, dream_title, dream_context, tags,
       <Card radius="sm" shadow="none" style={{ backgroundColor: "#F4F4F5" }}>
         <CardBody onClick={handleClick}>
           <div className="flex flex-row justify-between items-center">
-            <div><h2 className="text-xl tracking-wide">{dream_title}</h2></div>
+            <div><h2 className="text-xl tracking-wide">{truncatedTitle}</h2></div>
             <div><p className="text-sm font-mono tracking-tight">{format(new Date(created_at), `HH:mm`)}</p></div>
           </div>
           <Spacer y={2}/>
