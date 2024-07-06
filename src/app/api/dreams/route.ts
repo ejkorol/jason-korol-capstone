@@ -31,6 +31,10 @@ export async function POST(req: Request) {
 
       async onFinish(event) {
 
+        if (event.error) {
+          throw new Error("an error occured")
+        };
+
         const base64Image = await generateImage(context, imagePrompt);
         await uploadFile(base64Image, fileName);
 
