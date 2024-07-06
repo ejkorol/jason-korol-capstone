@@ -9,13 +9,13 @@ import {
   ModalBody,
   ModalFooter,
 } from "@nextui-org/react";
-import ArrowLeft from "@/app/icons/ArrowLeftIcon";
-import ArrowRight from "@/app/icons/ArrowRightIcon";
 import { experimental_useObject as useObject } from "ai/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { dreamSchema } from "@/app/api/dreams/dreamSchema";
 import useGreeting from "@/utils/hooks/useGreeting";
 import StreamingText from "@/app/components/StreamingText/StreamingText";
+import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface CreateModalProps {
   isOpen: boolean | undefined;
@@ -25,17 +25,34 @@ interface CreateModalProps {
 
 export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateModalProps) {
 
+  const router = useRouter();
+
   const [ dream, setDream ] = useState({
     context: "",
   });
   const { date } = useGreeting();
-  const { object, submit } = useObject({
+  const { object, submit, isLoading } = useObject({
     api: '/api/dreams',
     schema: dreamSchema
   });
 
+  useEffect(() => {
+    if (isLoading) {
+      toast.loading("Analyzing...", {
+        id: "loading"
+      })
+    } else {
+      toast.dismiss("loading")
+    }
+  }, [isLoading]);
+
+  function handleClose() {
+    onClose();
+    router.refresh();
+  };
+
   return (
-    <Modal shouldBlockScroll={false} hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
+    <Modal shouldBlockScroll={false} hideCloseButton isDismissable={false} backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col">
@@ -50,10 +67,7 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
         <ModalBody>
           <div className="mt-8 w-full">
             {!object?.analysis && (
-              <Textarea minRows={20} value={dream.context} onChange={(e) => { setDream({
-                context: e.target.value,
-                userId: 1
-              }) }} size="lg" fullWidth label="What did you dream about?" />
+              <Textarea minRows={20} value={dream.context} onChange={(e) => { setDream({context: e.target.value}) }} size="lg" fullWidth label="What did you dream about?" />
             )}
             {object?.analysis && (
               <>
@@ -75,13 +89,13 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              {!object?.analysis && (
-                <Button onPress={onClose} isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              {!object?.analysis || !isLoading && (
+                <Button onPress={handleClose} isIconOnly variant="light" size="lg">{`<--`}</Button>
               )}
             </div>
             <div className="flex">
               {!object?.analysis && (
-                <Button variant="light" size="lg" onClick={() => { submit(dream) }} endContent={ <ArrowRight color="#212121" size={18} stroke={1.5}/> }>Add to Journal</Button>
+                <Button variant="light" size="lg" onClick={() => { submit(dream) }}>{`Add to Journal -->`}</Button>
               )}
               {object?.analysis && (
                 <Button variant="light" size="lg">View dream</Button>
