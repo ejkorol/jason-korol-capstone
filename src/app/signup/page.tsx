@@ -115,6 +115,7 @@ export default function Signup() {
             )}
           </Button>
           <Button
+            color="success"
             size="lg"
             variant="light"
             type={currentPage === 3 ? "submit" : "button"}
