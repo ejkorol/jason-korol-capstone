@@ -39,10 +39,13 @@ export default function SymbolFeed({ symbols }: SymbolFeedProps) {
 
   if (symbols.length <= 0) {
     return (
+      <>
+      <Search handleSearch={handleSearch} />
       <div className="h-[80%] flex flex-col items-center justify-center">
         <MoonLogo size={80} color="#D9D9D9" />
         <h2 className="mt-6 text-lg text-neutral-300">Add a dream for new symbols...</h2>
       </div>
+      </>
     );
   }
 

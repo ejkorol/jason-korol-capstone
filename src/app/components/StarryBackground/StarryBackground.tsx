@@ -2,17 +2,17 @@
 import { useEffect, useMemo, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
+import useColorSelect from "@/utils/hooks/useColorSelect";
 
 import {
   type Container,
   type ISourceOptions,
-  MoveDirection,
-  OutMode,
 } from "@tsparticles/engine";
 
 function StarryBackground() {
 
   const [ init, setInit ] = useState(false);
+  const { color } = useColorSelect();
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -34,7 +34,7 @@ function StarryBackground() {
     },
     particles: {
     color: {
-        value: "#212121"
+        value: color
       },
     number: {
       value: 10

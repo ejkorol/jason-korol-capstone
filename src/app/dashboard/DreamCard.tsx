@@ -27,7 +27,7 @@ export default function DreamCard({dream: {id, dream_title, dream_context, tags,
 
   return (
     <div className="mb-6 cursor-pointer">
-      <Card radius="sm" shadow="none" style={{ backgroundColor: "#F4F4F5" }}>
+      <Card radius="sm" shadow="md" className="bg-default">
         <CardBody onClick={handleClick}>
           <div className="flex flex-row justify-between items-center">
             <div><h2 className="text-xl tracking-wide">{truncatedTitle}</h2></div>
@@ -35,12 +35,12 @@ export default function DreamCard({dream: {id, dream_title, dream_context, tags,
           </div>
           <Spacer y={2}/>
           <div>
-            <p className="text-sm tracking-wide font-light" style={{ color: "#616161" }}>{truncatedContext}</p>
+            <p className="text-sm tracking-wide font-light">{truncatedContext}</p>
           </div>
           <Spacer y={2}/>
           <div className="flex gap-2 flex-wrap">
           {tags.map((tag: Tag) => {
-            return <Chip key={tag.tag_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{tag.tag_name}</Chip>
+            return <Chip key={tag.tag_id} color="primary" className="text-sm" variant="solid" radius="full" size="md">{tag.tag_name}</Chip>
           })}
           </div>
         </CardBody>

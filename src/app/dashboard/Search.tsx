@@ -27,13 +27,13 @@ export default function Search({ handleSearch }: SearchProps) {
 
   return (
     <div className="flex w-full pl-6 pr-6">
-      <Input value={query} onChange={handleQuery} size="lg" radius="lg" variant="flat" placeholder="Search for your dreams"
+      <Input color="default" value={query} onChange={handleQuery} size="lg" radius="lg" variant="flat" placeholder="Search your dreams"
         startContent={
           <SearchIcon size={20} color="#bdbdbd" stroke={1.5}/>
         }
       />
       <Spacer x={4}/>
-      <Button onPress={onOpen} isIconOnly size="lg" radius="lg" style={{ backgroundColor: "#212121" }}><EditIcon size={24} color="#ffffff" stroke={1.5}/></Button>
+      <Button color="secondary" onPress={onOpen} isIconOnly size="lg" radius="lg" variant="shadow"><EditIcon size={24} stroke={1.5} /></Button>
       <CreateModal isOpen={isOpen} onClose={onClose} onOpenChange={onOpenChange} />
     </div>
   );

@@ -9,7 +9,6 @@ import {
   Chip,
   Image
 } from "@nextui-org/react";
-import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import { useState, useEffect } from "react";
 import { Symbol } from "@/types/dashboard";
 
@@ -56,7 +55,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
             <h2 className="mb-4">Appears in:</h2>
             <div className="flex flex-wrap gap-4">
               {symbol?.apperances.map((apperance) => {
-                return <Chip key={apperance.dream_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{apperance.dream_title}</Chip>
+                return <Chip key={apperance.dream_id} className="text-sm" color="default" variant="shadow" radius="full" size="md">{apperance.dream_title}</Chip>
               })}
             </div>
           </div>
@@ -64,7 +63,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              <Button onPress={onClose} isIconOnly variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              <Button onPress={onClose} isIconOnly variant="light" size="lg">{`<--`}</Button>
             </div>
           </div>
         </ModalFooter>

@@ -92,7 +92,10 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              {!object?.analysis && !isLoading && (
+              {!isLoading && object?.analysis && (
+                <Button onPress={handleClose} isIconOnly variant="light" size="lg">{`<--`}</Button>
+              )}
+              {!object?.analysis && (
                 <Button onPress={handleClose} isIconOnly variant="light" size="lg">{`<--`}</Button>
               )}
             </div>
