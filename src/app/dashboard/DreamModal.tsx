@@ -11,7 +11,6 @@ import {
   Image,
   ScrollShadow
 } from "@nextui-org/react";
-import ArrowLeft from "@/app/icons/ArrowLeftIcon";
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 
@@ -68,7 +67,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
             <h2 className="mb-4">Symbols:</h2>
               <div className="flex flex-wrap gap-4">
                 {dream.symbols.map((symbol: Symbol) => {
-                  return <Chip key={symbol.symbol_id} className="text-sm" variant="shadow" radius="full" size="md" style={{ backgroundColor: "#212121", color: "#ffffff" }}>{symbol.symbol_name}</Chip>
+                  return <Chip key={symbol.symbol_id} className="text-sm" variant="shadow" radius="full" size="md" color="primary">{symbol.symbol_name}</Chip>
                 })}
               </div>
           </div>
@@ -76,7 +75,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
             <h2 className="mb-4">Tags:</h2>
               <div className="flex flex-wrap gap-4">
                 {dream.tags.map((tag: Tag) => {
-                  return <Chip key={tag.tag_id} className="text-sm" radius="full" size="md">{tag.tag_name}</Chip>
+                  return <Chip key={tag.tag_id} className="text-sm" color="primary" variant="flat" radius="full" size="md">{tag.tag_name}</Chip>
                 })}
               </div>
           </div>
@@ -85,7 +84,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
         <ModalFooter>
           <div className="flex flex-row w-full justify-between">
             <div className="flex">
-              <Button isIconOnly onClick={onClose} variant="light" size="lg"><ArrowLeft color="#bdbdbd" size={18} stroke={1.5}/></Button>
+              <Button isIconOnly onClick={onClose} variant="light" size="lg">{`<--`}</Button>
             </div>
           </div>
         </ModalFooter>

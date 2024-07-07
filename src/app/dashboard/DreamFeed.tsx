@@ -34,10 +34,13 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
 
   if (dreams.length <= 0) {
     return (
+      <>
+      <Search handleSearch={handleSearch}/>
       <div className="h-[60%] flex flex-col items-center justify-center">
         <MoonLogo size={80} color="#D9D9D9" />
         <h2 className="mt-6 text-lg text-neutral-300">Sleep not yet sunked...</h2>
       </div>
+      </>
     );
   };
 

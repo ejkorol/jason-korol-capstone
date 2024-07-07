@@ -18,7 +18,7 @@ export default function UserAvatar({email, user}: UserAvatarProps) {
   return (
     <Dropdown placement="top-start" backdrop="blur">
       <DropdownTrigger>
-        <Avatar size="sm" isBordered as="button" />
+        <Avatar size="sm" color="primary" isBordered as="button" />
       </DropdownTrigger>
       <DropdownMenu variant="flat">
         <DropdownSection title="Signed in as:" showDivider>
