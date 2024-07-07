@@ -50,6 +50,7 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
 
   async function handleClose() {
     router.refresh();
+    router.prefetch("/dashboard/symbols")
     onClose();
   };
 
