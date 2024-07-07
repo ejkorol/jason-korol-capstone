@@ -101,7 +101,7 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
             </div>
             <div className="flex">
               {!object?.analysis && (
-                <Button variant="light" size="lg" onClick={() => { submit(dream) }}>{`Add to Journal -->`}</Button>
+                <Button variant="light" color="success" size="lg" onClick={() => { submit(dream) }}>{`Add to Journal -->`}</Button>
               )}
               {object?.analysis && (
                 <Button variant="light" size="lg">View dream</Button>

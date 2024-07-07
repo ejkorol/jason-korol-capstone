@@ -19,7 +19,7 @@ export default function Search({ handleSearch }: SearchProps) {
     <div className="flex w-full pl-6 pr-6">
       <Input value={query} onChange={handleQuery} size="lg" radius="lg" variant="flat" placeholder="Search..."
         startContent={
-          <SearchIcon size={20} color="#bdbdbd" stroke={1.5} />
+          <SearchIcon size={20} stroke={1.5} />
         }
       />
     </div>

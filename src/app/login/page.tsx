@@ -21,7 +21,7 @@ export default function Login() {
         <Input fullWidth size="lg" name="password" type="password" label="Password" />
         <div className="flex mt-4 gap-4 justify-between">
           <Button size="md" variant="light" href="/signup" as={Link}>Signup instead</Button>
-          <Button size="md" type="submit" variant="shadow" radius="full">Login</Button>
+          <Button size="md" color="success" type="submit" variant="shadow" radius="full">{`Login -->`}</Button>
         </div>
       </form>
     </section>
