@@ -4,7 +4,7 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   experimental: {
-    serverComponentsExternalPackages: ['knex', 'bcrypt', 'jsonwebtoken', 'uuid', 'astronomia'],
+    serverComponentsExternalPackages: ['knex', 'bcrypt', 'jsonwebtoken', 'uuid', 'astronomia', 'framer-motion'],
   },
   compiler: {
     removeConsole: process.env.NODE_ENV !== 'development',

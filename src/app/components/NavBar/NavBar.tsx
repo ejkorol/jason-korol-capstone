@@ -32,8 +32,8 @@ export default function NavBar() {
   return (
     <Navbar position="static" maxWidth="full" isBlurred className="mt-4">
       <NavbarContent justify="end">
-        <NavbarItem><Button isIconOnly variant="light" radius="full" size="md"><NotificationIcon color="#bdbdbd" size={30} stroke={1.5}/></Button></NavbarItem>
-        <NavbarItem><Button onClick={switchTheme} isIconOnly variant="light" radius="full"><MoonLogo size={30} color="#bdbdbd"/></Button></NavbarItem>
+        <NavbarItem><Button isIconOnly variant="light" radius="full" size="md"><NotificationIcon size={30} stroke={1.5}/></Button></NavbarItem>
+        <NavbarItem><Button onClick={switchTheme} isIconOnly variant="light" radius="full"><MoonLogo size={30}/></Button></NavbarItem>
       </NavbarContent>
     </Navbar>
   );

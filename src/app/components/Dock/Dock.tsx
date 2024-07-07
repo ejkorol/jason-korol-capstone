@@ -18,10 +18,10 @@ export default async function Dock() {
       <div className="flex relative w-[90%] m-auto mb-4 h-[4rem] rounded-lg flex-col backdrop-blur-lg bg-default z-10">
         <div className="pb-4 pt-4 pl-4 pr-4 flex justify-between items-center">
           <div className="flex w-[75%] justify-between">
-            <div><Button className="flex items-center justify-center content-center" as={Link} href="/dashboard" isIconOnly variant="light" size="sm" radius="full"><HomeIcon color="#212121" /></Button></div>
-            <div><Button className="flex items-center justify-center content-center" isIconOnly variant="light" size="sm" radius="full"><JournalIcon color="#212121"/></Button></div>
-            <div><Button className="flex items-center justify-center content-center" as={Link} href="/dashboard/symbols" isIconOnly variant="light" size="sm" radius="full"><QuestionIcon color="#212121" /></Button></div>
-            <div><Button className="flex items-center justify-center content-center" isIconOnly variant="light" size="sm" radius="full"><FriendsIcon color="#212121" /></Button></div>
+            <div><Button className="flex items-center justify-center content-center" as={Link} href="/dashboard" isIconOnly variant="light" size="sm" radius="full"><HomeIcon/></Button></div>
+            <div><Button className="flex items-center justify-center content-center" isIconOnly variant="light" size="sm" radius="full"><JournalIcon/></Button></div>
+            <div><Button className="flex items-center justify-center content-center" as={Link} href="/dashboard/symbols" isIconOnly variant="light" size="sm" radius="full"><QuestionIcon/></Button></div>
+            <div><Button className="flex items-center justify-center content-center" isIconOnly variant="light" size="sm" radius="full"><FriendsIcon /></Button></div>
           </div>
           <div><UserAvatar email={email as string} user={user as string} /></div>
         </div>
