@@ -26,7 +26,6 @@ interface CreateModalProps {
 export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateModalProps) {
 
   const router = useRouter();
-
   const [ dream, setDream ] = useState({
     context: "",
   });
@@ -49,9 +48,9 @@ export default function CreateModal({ isOpen, onClose, onOpenChange }: CreateMod
     }
   }, [isLoading]);
 
-  function handleClose() {
-    onClose();
+  async function handleClose() {
     router.refresh();
+    onClose();
   };
 
   return (

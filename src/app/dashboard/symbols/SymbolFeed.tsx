@@ -3,7 +3,7 @@ import SymbolItem from "@/app/dashboard/symbols/SymbolItem";
 import SymbolModal from "@/app/dashboard/symbols/SymbolModal";
 import Search from "@/app/dashboard/symbols/Search";
 import { Symbol } from "@/types/dashboard";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ScrollShadow, useDisclosure } from "@nextui-org/react";
 import MoonLogo from "@/app/icons/MoonLogo";
 
@@ -12,9 +12,14 @@ interface SymbolFeedProps {
 };
 
 export default function SymbolFeed({ symbols }: SymbolFeedProps) {
+
   const [selected, setSelected] = useState(0);
   const { isOpen, onClose, onOpenChange } = useDisclosure();
   const [filteredSymbols, setFilteredSymbols] = useState(symbols);
+
+  useEffect(() => {
+    setFilteredSymbols(symbols);
+  }, [symbols]);
 
   const handleSearch = (query: string) => {
     const filtered = symbols.filter(symbol => 

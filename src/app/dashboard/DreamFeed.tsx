@@ -6,7 +6,7 @@ import { format, isSameDay } from "date-fns";
 import MoonLogo from "@/app/icons/MoonLogo";
 import { useDisclosure } from "@nextui-org/react";
 import DreamModal from "@/app/dashboard/DreamModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Search from "@/app/dashboard/Search";
 
 interface DreamFeedProps {
@@ -18,6 +18,10 @@ export default function DreamFeed({ dreams }: DreamFeedProps) {
   const [ selected, setSelected ] = useState();
   const { isOpen, onOpenChange, onClose } = useDisclosure();
   const [ filteredDreams, setFilteredDreams ] = useState(dreams);
+
+  useEffect(() => {
+    setFilteredDreams(dreams);
+  },[dreams]);
 
   const handleSearch = (query: string) => {
     const filtered = dreams.filter(dream =>
