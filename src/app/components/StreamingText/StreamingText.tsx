@@ -22,5 +22,5 @@ export default function StreamingText({ text, speed = 20 }: StreamingTextProps) 
     }
   }, [index, text, speed]);
 
-  return <p className="text-sm">{displayedText}</p>
+  return <p className="text-sm mt-2 text-neutral-500">{displayedText}</p>
 };

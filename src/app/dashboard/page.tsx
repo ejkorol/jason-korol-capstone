@@ -4,12 +4,10 @@ import { getSession, getUser } from "@/lib/auth";
 import StatusBar from "@/app/dashboard/StatusBar";
 import DreamFeed from "@/app/dashboard/DreamFeed";
 
-const { signal } = new AbortController()
-
 async function fetchDreams(): Promise<Dream[]> {
   try {
     const session = await getSession(); 
-    const res = await fetch(`${process.env.API_URL}/users/${session.userId}/dreams`, { signal });
+    const res = await fetch(`${process.env.API_URL}/users/${session.userId}/dreams`, { cache: "no-cache" } );
     if (!res.ok) {
       throw new Error('Failed to fetch');
     };

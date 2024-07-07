@@ -24,21 +24,25 @@ interface DreamModalProps {
 export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: DreamModalProps) {
 
   const [ dream, setDream ] = useState<Dream>();
+  const [ mounted, setMounted ] = useState(false);
+
+
+  async function fetchData() {
+    try {
+      const res = await fetch(`/api/users/1/dreams/${dreamId}`);
+      const data = await res.json();
+      setDream(data);
+    } catch (e) {
+      console.error(e);
+    };
+  };
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const res = await fetch(`/api/users/1/dreams/${dreamId}`);
-        const data = await res.json();
-        setDream(data);
-      } catch (e) {
-        console.error(e);
-      };
-    };
-    if (dreamId) {
+    setMounted(true);
+    if (mounted) {
       fetchData();
     };
-  }, [dreamId]);
+  }, [dreamId, isOpen]);
 
   if (dream) {
   return (
