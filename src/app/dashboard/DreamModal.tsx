@@ -15,19 +15,24 @@ import { useState, useEffect } from "react";
 import { useDisclosure } from "@nextui-org/react";
 import { format } from "date-fns";
 import ImageModal from "@/app/components/ImageModal/ImageModal";
+import SymbolModal from "@/app/dashboard/symbols/SymbolModal";
 
 interface DreamModalProps {
   isOpen: boolean | undefined;
   onOpenChange: (isOpen: boolean) => void;
-  dreamId: number | undefined;
+  dreamId: number | null;
   onClose: () => void;
 }
+
+type SelectedSymbol = number | null;
 
 export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: DreamModalProps) {
 
   const [ dream, setDream ] = useState<Dream>();
   const [ mounted, setMounted ] = useState(false);
+  const [ selectedSymbol, setSelectedSymbol ] = useState<SelectedSymbol>(null);
   const imageModal = useDisclosure();
+  const symbolModal = useDisclosure();
 
   async function fetchData() {
     try {
@@ -39,6 +44,11 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
     };
   };
 
+  function handleSymbolClick(id: number) {
+    setSelectedSymbol(id);
+    symbolModal.onOpen();
+  };
+
   useEffect(() => {
     setMounted(true);
     if (mounted) {
@@ -48,6 +58,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
 
   if (dream) {
   return (
+    <>
     <Modal hideCloseButton scrollBehavior="inside" backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
         <ModalHeader>
@@ -74,7 +85,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
             <h2 className="mb-4">Symbols:</h2>
               <div className="flex flex-wrap gap-4">
                 {dream.symbols.map((symbol: Symbol) => {
-                  return <Chip key={symbol.symbol_id} className="text-sm" variant="shadow" radius="full" size="md" color="primary">{symbol.symbol_name}</Chip>
+                  return <Chip onClick={() => handleSymbolClick(symbol.symbol_id)} key={symbol.symbol_id} className="text-sm" variant="shadow" radius="full" size="md" color="primary">{symbol.symbol_name}</Chip>
                 })}
               </div>
           </div>
@@ -97,6 +108,8 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
         </ModalFooter>
       </ModalContent>
     </Modal>
+    <SymbolModal symbolId={selectedSymbol} isOpen={symbolModal.isOpen} onOpenChange={symbolModal.onOpenChange} onClose={symbolModal.onClose} />
+    </>
   );
 }
 }

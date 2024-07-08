@@ -13,18 +13,23 @@ import { useDisclosure } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { Symbol } from "@/types/dashboard";
 import ImageModal from "@/app/components/ImageModal/ImageModal";
+import DreamModal from "@/app/dashboard/DreamModal";
 
 interface SymbolModalProps {
   isOpen: boolean | undefined;
   onOpenChange: (isOpen: boolean) => void;
-  symbolId: Number;
+  symbolId: number | null;
   onClose: () => void;
 };
+
+type SelectedDream = number | null;
 
 export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: SymbolModalProps) {
 
   const [ symbol, setSymbol ] = useState<Symbol>();
+  const [ selectedDream, setSelectedDream ] = useState<SelectedDream>(null);
   const imageModal = useDisclosure();
+  const dreamModal = useDisclosure();
 
   useEffect(() => {
     async function fetchSymbol() {
@@ -40,6 +45,11 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
       fetchSymbol();
     };
   }, [symbolId]);
+
+  function handleDreamClick(id: number) {
+    setSelectedDream(id);
+    dreamModal.onOpen();
+  };
 
   return (
     <>
@@ -60,7 +70,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
             <h2 className="mb-4">Appears in:</h2>
             <div className="flex flex-wrap gap-4">
               {symbol?.apperances.map((apperance) => {
-                return <Chip key={apperance.dream_id} className="text-sm" color="default" variant="shadow" radius="full" size="md">{apperance.dream_title}</Chip>
+                return <Chip onClick={() => handleDreamClick(apperance.dream_id)} key={apperance.dream_id} className="text-sm" color="default" variant="shadow" radius="full" size="md">{apperance.dream_title}</Chip>
               })}
             </div>
           </div>
@@ -74,6 +84,7 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
         </ModalFooter>
       </ModalContent>
     </Modal>
+    <DreamModal dreamId={selectedDream} isOpen={dreamModal.isOpen} onOpenChange={dreamModal.onOpenChange} onClose={dreamModal.onClose} />
     </>
   );
 };
