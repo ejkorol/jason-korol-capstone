@@ -9,8 +9,10 @@ import {
   Chip,
   Image
 } from "@nextui-org/react";
+import { useDisclosure } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import { Symbol } from "@/types/dashboard";
+import ImageModal from "@/app/components/ImageModal/ImageModal";
 
 interface SymbolModalProps {
   isOpen: boolean | undefined;
@@ -22,6 +24,7 @@ interface SymbolModalProps {
 export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: SymbolModalProps) {
 
   const [ symbol, setSymbol ] = useState<Symbol>();
+  const imageModal = useDisclosure();
 
   useEffect(() => {
     async function fetchSymbol() {
@@ -39,11 +42,13 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
   }, [symbolId]);
 
   return (
+    <>
     <Modal hideCloseButton backdrop="blur" radius="md" shadow="sm" isOpen={isOpen} onOpenChange={onOpenChange}>
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col">
-            <Image isBlurred width={60} className="aspect-square object-cover" radius="sm" src={symbol?.symbol_image}/>
+            <ImageModal item={symbol?.symbol_image} isOpen={imageModal.isOpen} onOpenChange={imageModal.onOpenChange} />
+            <Image onClick={imageModal.onOpen} isBlurred width={60} className="aspect-square object-cover" radius="sm" src={symbol?.symbol_image}/>
             <h1 className="mt-4 text-3xl tracking-wide font-light">{symbol?.symbol_name}</h1>
           </div>
         </ModalHeader>
@@ -69,5 +74,6 @@ export default function SymbolModal({isOpen, onOpenChange, onClose, symbolId}: S
         </ModalFooter>
       </ModalContent>
     </Modal>
+    </>
   );
 };

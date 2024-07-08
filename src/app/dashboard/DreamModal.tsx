@@ -12,7 +12,9 @@ import {
   ScrollShadow
 } from "@nextui-org/react";
 import { useState, useEffect } from "react";
+import { useDisclosure } from "@nextui-org/react";
 import { format } from "date-fns";
+import ImageModal from "@/app/components/ImageModal/ImageModal";
 
 interface DreamModalProps {
   isOpen: boolean | undefined;
@@ -25,7 +27,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
 
   const [ dream, setDream ] = useState<Dream>();
   const [ mounted, setMounted ] = useState(false);
-
+  const imageModal = useDisclosure();
 
   async function fetchData() {
     try {
@@ -41,7 +43,7 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
     setMounted(true);
     if (mounted) {
       fetchData();
-    };
+    }
   }, [dreamId, isOpen]);
 
   if (dream) {
@@ -50,7 +52,8 @@ export default function DreamModal({isOpen, onOpenChange, onClose, dreamId}: Dre
       <ModalContent>
         <ModalHeader>
           <div className="mt-4 flex flex-col w-full">
-            <Image src={dream?.dream_image} isBlurred width={100} className="aspect-square object-cover" radius="sm"/>
+            <ImageModal item={dream.dream_image} isOpen={imageModal.isOpen} onOpenChange={imageModal.onOpenChange}/>
+            <Image onClick={imageModal.onOpen} src={dream?.dream_image} isBlurred width={100} className="aspect-square object-cover" radius="sm"/>
             <h1 className="mt-4 text-3xl tracking-wide font-light">{dream?.dream_title}</h1>
             <div className="flex mt-2 justify-between">
               <p className="font-mono text-sm font-light text-neutral-400">{format(new Date(`${dream?.created_at}`), "iiii, MMMM do")}</p>
