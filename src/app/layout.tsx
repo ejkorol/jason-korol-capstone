@@ -37,3 +37,5 @@ export default function RootLayout({ children }: Readonly<{children: React.React
     </html>
   );
 }
+
+export const dynamic = 'force-dynamic'
