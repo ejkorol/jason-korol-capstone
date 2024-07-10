@@ -30,10 +30,9 @@ export async function POST(req: Request) {
       prompt: dreamPrompt(context, userId),
 
       async onFinish(event) {
-
         if (event.error) {
-          throw new Error("an error occured")
-        };
+          throw new Error("An error occurred");
+        }
 
         const base64Image = await generateImage(context, imagePrompt);
         await uploadFile(base64Image, fileName);
@@ -46,37 +45,41 @@ export async function POST(req: Request) {
           dream_image: getSignedUrl(fileName),
         };
 
-        const dreamId = await db("dreams").insert(dream);
+        const [dreamId] = await db("dreams").insert(dream).returning('id');
 
-        event.object?.analysis.dream_tags.forEach(async (tag) => {
-          const tagInDatabase = await db("tags").where("tags.tag_name", tag.tag_name.toLowerCase()).first();
+        for (const tag of event.object?.analysis.dream_tags || []) {
+          const tagInDatabase = await db("tags").where("tag_name", tag.tag_name.toLowerCase()).first();
           if (!tagInDatabase) {
-            const tagId = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() })
-            await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId })
+            const [tagId] = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() }).returning('id');
+            await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId });
           } else {
-            await db("tags_dreams").insert({ tag_id: tagInDatabase.id, dream_id: dreamId })
-          };
-        });
+            await db("tags_dreams").insert({ tag_id: tagInDatabase.id, dream_id: dreamId });
+          }
+        }
 
-        event.object?.analysis.dream_symbols.forEach(async (symbol) => {
-          const symbolInDatabase = await db("symbols").where("symbols.symbol_name", symbol.symbol_name.toLowerCase()).first();
+        for (const symbol of event.object?.analysis.dream_symbols || []) {
+          const symbolInDatabase = await db("symbols").where("symbol_name", symbol.symbol_name.toLowerCase()).first();
           if (!symbolInDatabase) {
             const symbolImageFileName = uuidv4();
             const base64SymbolImage = await generateImage(symbol.symbol_name, symbolPrompt);
             await uploadFile(base64SymbolImage, symbolImageFileName);
-            const symbolId = await db("symbols").insert({ user_id: dream.user_id, symbol_name: symbol.symbol_name.toLowerCase(), symbol_analysis: symbol.symbol_analysis, symbol_image: getSignedUrl(symbolImageFileName) });
+            const [symbolId] = await db("symbols").insert({
+              user_id: dream.user_id,
+              symbol_name: symbol.symbol_name.toLowerCase(),
+              symbol_analysis: symbol.symbol_analysis,
+              symbol_image: getSignedUrl(symbolImageFileName)
+            }).returning('id');
             await db("symbols_dreams").insert({ symbol_id: symbolId, dream_id: dreamId });
           } else {
             await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.id, dream_id: dreamId });
-          };
-        });
+          }
+        }
       }
-
-    })
+    });
 
     return result.toTextStreamResponse();
 
-  } catch(e: any) {
+  } catch (e: any) {
     return new Response(e.message, { status: 500 });
-  };
-};
+  }
+}
