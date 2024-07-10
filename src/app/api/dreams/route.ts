@@ -11,8 +11,6 @@ import { imagePrompt, symbolPrompt } from "./imagePrompt";
 import { decrypt } from "@/lib/auth";
 import { cookies } from "next/headers";
 
-export const maxDuration = 30;
-
 export async function POST(req: Request) {
   try {
     const token = cookies().get("Authorization");
