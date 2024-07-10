@@ -4,13 +4,17 @@ import Search from "@/app/dashboard/friends/Search";
 import ButtonNavigation from "@/app/dashboard/friends/ButtonNavigation";
 import MoonLogo from "@/app/icons/MoonLogo";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function MessageFeed({messages}: any) {
 
   const router = useRouter();
   const [ filteredMessages, setFilteredMessages ] = useState(messages);
   const [ setQuery ] = useState("");
+
+  useEffect(() => {
+    setFilteredMessages(messages)
+  },[messages]);
 
   function handleSearch(query: string) {
     const filtered = messages.filter((message: any) =>
