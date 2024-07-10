@@ -22,8 +22,7 @@ function StarryBackground() {
       });
   }, []);
 
-  const options: ISourceOptions = useMemo (
-    () => ({
+  const options: ISourceOptions = {
     background: {},
     interactivity: {
       detect_on: "window",
@@ -71,8 +70,7 @@ function StarryBackground() {
     }
     },
     fullScreen: false
-    }),[]
-  )
+  }
 
   if (init) {
     return (
