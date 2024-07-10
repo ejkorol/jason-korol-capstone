@@ -15,7 +15,7 @@ interface DreamFeedProps {
 
 export default function DreamFeed({ dreams }: DreamFeedProps) {
 
-  const [ selected, setSelected ] = useState();
+  const [ selected, setSelected ] = useState<any>();
   const { isOpen, onOpenChange, onClose } = useDisclosure();
   const [ filteredDreams, setFilteredDreams ] = useState(dreams);
 
