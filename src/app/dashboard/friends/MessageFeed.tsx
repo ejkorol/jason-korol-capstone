@@ -6,7 +6,7 @@ import MoonLogo from "@/app/icons/MoonLogo";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function MessageFeed({messages, session}: any) {
+export default function MessageFeed({messages}: any) {
 
   const router = useRouter();
   const [ filteredMessages, setFilteredMessages ] = useState(messages);
@@ -47,7 +47,7 @@ export default function MessageFeed({messages, session}: any) {
 
   return (
     <>
-    <Search session={session} handleSearch={handleSearch} setQuery={setQuery} />
+    <Search handleSearch={handleSearch} setQuery={setQuery} />
     <ButtonNavigation />
     <section className="flex w-full p-6 gap-6">
       <div className="flex gap-4 w-full flex-col justify-between">

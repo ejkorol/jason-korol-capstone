@@ -12,6 +12,7 @@ import {
   Avatar
 } from "@nextui-org/react";
 
+import { getSession } from "@/lib/auth";
 import { useState, useEffect } from "react";
 import sendMessageAction from "./sendMessageAction";
 import { useRouter } from "next/navigation";
@@ -20,7 +21,6 @@ interface CreateMessageModalProps {
   isOpen: boolean | undefined;
   onOpenChange: (isOpen: boolean) => void;
   onClose: () => void;
-  session: any;
 }
 
 interface User {
@@ -29,13 +29,14 @@ interface User {
   username: string;
 }
 
-export default function CreateMessageModal({ isOpen, onOpenChange, onClose, session }: CreateMessageModalProps){
+export default function CreateMessageModal({ isOpen, onOpenChange, onClose }: CreateMessageModalProps){
 
   const router = useRouter();
   const [ query, setQuery ] = useState("");
   const [ foundUsers, setFoundUsers ] = useState<User[]>([]);
   const [ message, setMessage ] = useState("");
   const [ recipientId, setRecipientId ] = useState<any>(null);
+  const [ session, setSession ] = useState<any>(null);
 
   async function querySearch() {
     try {
@@ -51,6 +52,11 @@ export default function CreateMessageModal({ isOpen, onOpenChange, onClose, sess
     };
   };
 
+  async function fetchSession() {
+    const data = await getSession();
+    setSession(data);
+  };
+
   const handleSend = async () => {
     const formData = {
       recipientId: recipientId,
@@ -64,6 +70,7 @@ export default function CreateMessageModal({ isOpen, onOpenChange, onClose, sess
   };
 
   useEffect(() => {
+    fetchSession();
     if (query !== "") {
       querySearch();
     };

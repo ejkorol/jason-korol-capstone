@@ -11,7 +11,7 @@ import CreateMessageModal from "@/app/dashboard/friends/CreateMessageModal";
 import SearchIcon from "@/app/icons/SearchIcon";
 import EditIcon from "@/app/icons/EditIcon";
 
-export default function Search({session, handleSearch}: any) {
+export default function Search({handleSearch}: any) {
 
   const createMessageModal = useDisclosure();
   const [ query, setQuery ] = useState("");
@@ -30,7 +30,7 @@ export default function Search({session, handleSearch}: any) {
       />
       <Spacer x={4}/>
       <Button onClick={createMessageModal.onOpen} color="secondary" isIconOnly size="lg" radius="lg" variant="shadow"><EditIcon size={24} stroke={1.5} /></Button>
-      <CreateMessageModal session={session} isOpen={createMessageModal.isOpen} onClose={createMessageModal.onClose} onOpenChange={createMessageModal.onOpenChange} />
+      <CreateMessageModal isOpen={createMessageModal.isOpen} onClose={createMessageModal.onClose} onOpenChange={createMessageModal.onOpenChange} />
     </div>
   );
 };

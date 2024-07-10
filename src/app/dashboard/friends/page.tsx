@@ -42,14 +42,13 @@ async function fetchFriends(): Promise<Friend[]> {
 
 export default async function Friends() {
 
-  const session = await getSession();
   const friends = await fetchFriends();
   const messages = await fetchMessages();
 
   return (
     <section className="flex flex-col w-full">
       <StatusBar>Messages</StatusBar>
-      <MessageFeed messages={messages} session={session} />
+      <MessageFeed messages={messages} />
       <FriendsList friends={friends} />
     </section>
   );
