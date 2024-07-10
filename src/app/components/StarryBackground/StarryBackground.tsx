@@ -71,7 +71,7 @@ function StarryBackground() {
     }
     },
     fullScreen: false
-    })
+    }),[]
   )
 
   if (init) {
