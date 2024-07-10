@@ -45,12 +45,12 @@ export async function POST(req: Request) {
           dream_image: getSignedUrl(fileName),
         };
 
-        const [dreamId] = await db("dreams").insert(dream).returning('id');
+        const [dreamId] = await db("dreams").insert(dream);
 
         for (const tag of event.object?.analysis.dream_tags || []) {
           const tagInDatabase = await db("tags").where("tag_name", tag.tag_name.toLowerCase()).first();
           if (!tagInDatabase) {
-            const [tagId] = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() }).returning('id');
+            const [tagId] = await db("tags").insert({ user_id: dream.user_id, tag_name: tag.tag_name.toLowerCase() });
             await db("tags_dreams").insert({ tag_id: tagId, dream_id: dreamId });
           } else {
             await db("tags_dreams").insert({ tag_id: tagInDatabase.id, dream_id: dreamId });
@@ -68,7 +68,7 @@ export async function POST(req: Request) {
               symbol_name: symbol.symbol_name.toLowerCase(),
               symbol_analysis: symbol.symbol_analysis,
               symbol_image: getSignedUrl(symbolImageFileName)
-            }).returning('id');
+            });
             await db("symbols_dreams").insert({ symbol_id: symbolId, dream_id: dreamId });
           } else {
             await db("symbols_dreams").insert({ symbol_id: symbolInDatabase.id, dream_id: dreamId });
