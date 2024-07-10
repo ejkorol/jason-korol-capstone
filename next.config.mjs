@@ -1,4 +1,21 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import withPWA from 'next-pwa';
 
-export default nextConfig;
+const nextConfig = {
+  reactStrictMode: true,
+  swcMinify: true,
+  experimental: {
+    serverComponentsExternalPackages: ['knex', 'bcrypt', 'jsonwebtoken', 'uuid', 'astronomia'],
+  },
+  compiler: {
+    removeConsole: process.env.NODE_ENV !== 'development',
+  },
+};
+
+const pwaConfig = {
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+  disable: process.env.NODE_ENV === 'development',
+};
+
+export default withPWA(pwaConfig)(nextConfig);
