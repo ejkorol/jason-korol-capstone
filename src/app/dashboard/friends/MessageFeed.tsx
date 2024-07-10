@@ -4,7 +4,7 @@ import Search from "@/app/dashboard/friends/Search";
 import ButtonNavigation from "@/app/dashboard/friends/ButtonNavigation";
 import MoonLogo from "@/app/icons/MoonLogo";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function MessageFeed({messages, session}: any) {
 
@@ -29,15 +29,15 @@ export default function MessageFeed({messages, session}: any) {
     return `${day}/${month}/${year}`;
   };
 
-  if (!messages) {
+  if (messages.length <= 0) {
     return (
-      <>
+      <section className="h-[50vh]">
       <Search />
       <ButtonNavigation />
       <div className="h-[60%] flex flex-col items-center justify-center">
         <MoonLogo size={80}/>
       </div>
-      </>
+      </section>
     );
   };
 

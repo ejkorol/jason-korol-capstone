@@ -21,10 +21,10 @@ interface FriendsListProps {
 
 export default function FriendsList({friends}: FriendsListProps ) {
 
-  if (!friends) return (
+  if (friends.length <= 0) return (
     <section className="flex flex-col w-full h-full p-6">
       <h2 className="text-sm font-mono uppercase tracking-wide">friends list</h2>
-      <div className="flex justify-center items-center h-[50%]">
+      <div className="flex justify-center items-center h-[15vh]">
         <p className="text-lg text-neutral-500">Friends not yet aquired...</p>
       </div>
     </section>
