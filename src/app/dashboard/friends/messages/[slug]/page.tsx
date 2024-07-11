@@ -22,6 +22,7 @@ export default function Messages(){
 
   async function fetchMessages() {
     const data = await messagesAction(params.slug);
+    console.log(data)
     setMessages(data)
   };
 

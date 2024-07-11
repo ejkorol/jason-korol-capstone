@@ -26,6 +26,7 @@ export default function Requests() {
     setSession(session);
     const res = await fetch(`http://localhost:3000/api/users/${session.userId}/friends`);
     const json = await res.json();
+    console.log(json);
     setFriends(json.filter((friend: any) => friend.status === "pending"));
   }
 
@@ -68,10 +69,15 @@ export default function Requests() {
   async function handleAction(friendId: number, action: 'accept' | 'decline') {
     const friendRequest = friends.find((friend: any) => friend.friend_id === friendId);
 
-    if (friendRequest && friendRequest.user_id === session.userId) {
-      toast.error("You cannot accept your own request.");
+    if (!friendRequest) {
+      toast.error("Friend request not found.");
       return;
-    }
+    };
+
+    if (friendRequest.user_id === session.userId) {
+      toast.error("You cannot accept or decline your own request.");
+      return;
+    };
 
     const res = await fetch(`http://localhost:3000/api/users/${session.userId}/friends`, {
       method: 'PATCH',
@@ -80,10 +86,15 @@ export default function Requests() {
       },
       body: JSON.stringify({ friend_id: friendId, action }),
     });
+
     if (res.ok) {
+      toast.success(`Friend request ${action}ed`)
       fetchFriends();
-    }
-  }
+    } else {
+      const error = await res.json();
+      toast.error(error.message);
+    };
+  };
 
   useEffect(() => {
     fetchFriends();
