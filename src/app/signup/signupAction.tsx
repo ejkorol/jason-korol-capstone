@@ -15,7 +15,6 @@ export default async function loginAction(formData: any): Promise<string> {
 
   const json = await res.json();
 
-
   if (res.ok) {
     cookies().set("Authorization", json.token, {
       secure: true,

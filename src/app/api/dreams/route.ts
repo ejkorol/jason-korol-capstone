@@ -81,5 +81,5 @@ export async function POST(req: Request) {
 
   } catch (e: any) {
     return new Response(e.message, { status: 500 });
-  }
-}
+  };
+};

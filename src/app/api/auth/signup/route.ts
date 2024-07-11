@@ -44,6 +44,6 @@ export async function POST(req: Request) {
     return Response.json({ token });
 
   } catch (e: any) {
-    return new Response(e.message, { status: 500 });
+    return Response.json(e.message, { status: 500 });
   };
 };
